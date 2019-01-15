@@ -40,7 +40,6 @@ android {
     }
 
 
-
 }
 
 
@@ -53,7 +52,7 @@ dependencies {
     // 定义protobuf依赖，使用精简版
     //compile "com.google.protobuf:protobuf-lite:3.0.0"
     compile 'com.google.protobuf:protobuf-java:3.5.1'
-    compile ('com.squareup.retrofit2:converter-protobuf:2.2.0') {
+    compile('com.squareup.retrofit2:converter-protobuf:2.2.0') {
         exclude group: 'com.google.protobuf', module: 'protobuf-java'
     }
 
