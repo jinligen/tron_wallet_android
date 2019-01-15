@@ -2,7 +2,7 @@ package org.tron.walletcli;
 
 import android.util.Log;
 
-import com.beust.jcommander.JCommander;
+//import com.beust.jcommander.JCommander;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -567,7 +567,7 @@ public class Client {
     if (result) {
       Log.d("tag","TransferAsset " + amount + " to " + toAddress + " successful !!");
     } else {
-      Log.d("TransferAsset " + amount + " to " + toAddress + " failed !!");
+      Log.d("tag","TransferAsset " + amount + " to " + toAddress + " failed !!");
     }
   }
 
@@ -2246,10 +2246,12 @@ public class Client {
 
   public static void main(String[] args) {
     Client cli = new Client();
-    JCommander.newBuilder()
-        .addObject(cli)
-        .build()
-        .parse(args);
+
+
+//    JCommander.newBuilder()
+//        .addObject(cli)
+//        .build()
+//        .parse(args);
 
     cli.run();
   }

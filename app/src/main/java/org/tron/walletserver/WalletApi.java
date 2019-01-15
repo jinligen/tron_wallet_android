@@ -1,5 +1,7 @@
 package org.tron.walletserver;
 
+import android.util.Log;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -239,7 +241,7 @@ public class WalletApi {
 
   public String store2Keystore() throws IOException {
     if (walletFile == null) {
-      logger.warn("Warning: Store wallet failed, walletFile is null !!");
+      Log.d("tag", "Warning: Store wallet failed, walletFile is null !!");
       return null;
     }
     File file = new File(FilePath);
@@ -753,7 +755,7 @@ public class WalletApi {
       throw new IllegalArgumentException("password is empty");
     }
     if (password.length < 6) {
-      logger.warn("Warning: Password is too short !!");
+      Log.d("tag", "Warning: Password is too short !!");
       return false;
     }
     //Other rule;
@@ -775,19 +777,19 @@ public class WalletApi {
 
   public static boolean addressValid(byte[] address) {
     if (ArrayUtils.isEmpty(address)) {
-      logger.warn("Warning: Address is empty !!");
+      Log.d("tag", "Warning: Address is empty !!");
       return false;
     }
     if (address.length != CommonConstant.ADDRESS_SIZE) {
-      logger.warn(
+      Log.d("tag",
           "Warning: Address length need " + CommonConstant.ADDRESS_SIZE + " but " + address.length
               + " !!");
       return false;
     }
     byte preFixbyte = address[0];
     if (preFixbyte != WalletApi.getAddressPreFixByte()) {
-      logger
-          .warn("Warning: Address need prefix with " + WalletApi.getAddressPreFixByte() + " but "
+      Log.d
+          ("tag","Warning: Address need prefix with " + WalletApi.getAddressPreFixByte() + " but "
               + preFixbyte + " !!");
       return false;
     }
@@ -824,7 +826,7 @@ public class WalletApi {
 
   public static byte[] decodeFromBase58Check(String addressBase58) {
     if (StringUtils.isEmpty(addressBase58)) {
-      logger.warn("Warning: Address is empty !!");
+      Log.d("tag", "Warning: Address is empty !!");
       return null;
     }
     byte[] address = decode58Check(addressBase58);
@@ -836,11 +838,11 @@ public class WalletApi {
 
   public static boolean priKeyValid(byte[] priKey) {
     if (ArrayUtils.isEmpty(priKey)) {
-      logger.warn("Warning: PrivateKey is empty !!");
+      Log.d("tag", "Warning: PrivateKey is empty !!");
       return false;
     }
     if (priKey.length != 32) {
-      logger.warn("Warning: PrivateKey length need 64 but " + priKey.length + " !!");
+      Log.d("tag", "Warning: PrivateKey length need 64 but " + priKey.length + " !!");
       return false;
     }
     //Other rule;
@@ -1384,11 +1386,11 @@ public class WalletApi {
       String stateMutability = abiItem.getAsJsonObject().get("stateMutability") != null ?
           abiItem.getAsJsonObject().get("stateMutability").getAsString() : null;
       if (type == null) {
-        logger.error("No type!");
+        Log.d("tag", "No type!");
         return null;
       }
       if (!type.equalsIgnoreCase("fallback") && null == inputs) {
-        logger.error("No inputs!");
+        Log.d("tag", "No inputs!");
         return null;
       }
 
@@ -1405,7 +1407,7 @@ public class WalletApi {
           JsonElement inputItem = inputs.get(j);
           if (inputItem.getAsJsonObject().get("name") == null ||
               inputItem.getAsJsonObject().get("type") == null) {
-            logger.error("Input argument invalid due to no name or no type!");
+            Log.d("tag", "Input argument invalid due to no name or no type!");
             return null;
           }
           String inputName = inputItem.getAsJsonObject().get("name").getAsString();
@@ -1430,7 +1432,7 @@ public class WalletApi {
           JsonElement outputItem = outputs.get(k);
           if (outputItem.getAsJsonObject().get("name") == null ||
               outputItem.getAsJsonObject().get("type") == null) {
-            logger.error("Output argument invalid due to no name or no type!");
+            Log.d("tag", "Output argument invalid due to no name or no type!");
             return null;
           }
           String outputName = outputItem.getAsJsonObject().get("name").getAsString();
@@ -1490,7 +1492,7 @@ public class WalletApi {
       String libraryAddressPair) {
     SmartContract.ABI abi = jsonStr2ABI(ABI);
     if (abi == null) {
-      logger.error("abi is null");
+      Log.d("tag", "abi is null");
       return null;
     }
 

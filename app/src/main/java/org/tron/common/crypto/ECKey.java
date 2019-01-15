@@ -18,6 +18,8 @@
 
 package org.tron.common.crypto;
 
+import android.util.Log;
+
 import static org.tron.common.utils.BIUtil.isLessThan;
 import static org.tron.common.utils.ByteUtil.bigIntegerToBytes;
 
@@ -39,6 +41,7 @@ import java.security.interfaces.ECPublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
 //import javax.annotation.Nullable;
+import javax.annotation.Nullable;
 import javax.crypto.KeyAgreement;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
@@ -527,7 +530,7 @@ public class ECKey implements Serializable {
       // specially crafted signatures.
       // Those signatures are inherently invalid/attack sigs so we just
       // fail them here rather than crash the thread.
-      logger.error("Caught NPE inside bouncy castle", npe);
+      Log.d("tag", "Caught NPE inside bouncy castle", npe);
       return false;
     }
   }

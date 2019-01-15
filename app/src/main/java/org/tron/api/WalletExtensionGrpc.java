@@ -47,7 +47,7 @@ public final class WalletExtensionGrpc {
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "protocol.WalletExtension", "GetTransactionsFromThis"))
-              .setSampledToLocalTracing(true)
+              //.setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.tron.api.GrpcAPI.AccountPaginated.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -79,7 +79,7 @@ public final class WalletExtensionGrpc {
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "protocol.WalletExtension", "GetTransactionsFromThis2"))
-              .setSampledToLocalTracing(true)
+              //.setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.tron.api.GrpcAPI.AccountPaginated.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -111,7 +111,7 @@ public final class WalletExtensionGrpc {
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "protocol.WalletExtension", "GetTransactionsToThis"))
-              .setSampledToLocalTracing(true)
+              //.setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.tron.api.GrpcAPI.AccountPaginated.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -143,7 +143,7 @@ public final class WalletExtensionGrpc {
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "protocol.WalletExtension", "GetTransactionsToThis2"))
-              .setSampledToLocalTracing(true)
+              //.setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.tron.api.GrpcAPI.AccountPaginated.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(

@@ -50,7 +50,7 @@ public final class DatabaseGrpc {
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "protocol.Database", "getBlockReference"))
-              .setSampledToLocalTracing(true)
+              //.setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.tron.api.GrpcAPI.EmptyMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -82,7 +82,7 @@ public final class DatabaseGrpc {
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "protocol.Database", "GetDynamicProperties"))
-              .setSampledToLocalTracing(true)
+              //.setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.tron.api.GrpcAPI.EmptyMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -114,7 +114,7 @@ public final class DatabaseGrpc {
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "protocol.Database", "GetNowBlock"))
-              .setSampledToLocalTracing(true)
+              //.setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.tron.api.GrpcAPI.EmptyMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -146,7 +146,7 @@ public final class DatabaseGrpc {
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "protocol.Database", "GetBlockByNum"))
-              .setSampledToLocalTracing(true)
+              //.setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.tron.api.GrpcAPI.NumberMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(

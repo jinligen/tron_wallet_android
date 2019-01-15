@@ -47,7 +47,7 @@ public final class WalletSolidityGrpc {
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "protocol.WalletSolidity", "GetAccount"))
-              .setSampledToLocalTracing(true)
+              ////.setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.tron.protos.Protocol.Account.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -79,7 +79,7 @@ public final class WalletSolidityGrpc {
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "protocol.WalletSolidity", "GetAccountById"))
-              .setSampledToLocalTracing(true)
+              ////.setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.tron.protos.Protocol.Account.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -111,7 +111,7 @@ public final class WalletSolidityGrpc {
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "protocol.WalletSolidity", "ListWitnesses"))
-              .setSampledToLocalTracing(true)
+              ////.setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.tron.api.GrpcAPI.EmptyMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -143,7 +143,7 @@ public final class WalletSolidityGrpc {
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "protocol.WalletSolidity", "GetAssetIssueList"))
-              .setSampledToLocalTracing(true)
+              ////.setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.tron.api.GrpcAPI.EmptyMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -175,7 +175,7 @@ public final class WalletSolidityGrpc {
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "protocol.WalletSolidity", "GetPaginatedAssetIssueList"))
-              .setSampledToLocalTracing(true)
+              ////.setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.tron.api.GrpcAPI.PaginatedMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -207,7 +207,7 @@ public final class WalletSolidityGrpc {
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "protocol.WalletSolidity", "GetAssetIssueByName"))
-              .setSampledToLocalTracing(true)
+              ////.setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.tron.api.GrpcAPI.BytesMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -239,7 +239,7 @@ public final class WalletSolidityGrpc {
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "protocol.WalletSolidity", "GetAssetIssueListByName"))
-              .setSampledToLocalTracing(true)
+              ////.setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.tron.api.GrpcAPI.BytesMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -271,7 +271,7 @@ public final class WalletSolidityGrpc {
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "protocol.WalletSolidity", "GetAssetIssueById"))
-              .setSampledToLocalTracing(true)
+              ////.setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.tron.api.GrpcAPI.BytesMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -303,7 +303,7 @@ public final class WalletSolidityGrpc {
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "protocol.WalletSolidity", "GetNowBlock"))
-              .setSampledToLocalTracing(true)
+              ////.setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.tron.api.GrpcAPI.EmptyMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -335,7 +335,7 @@ public final class WalletSolidityGrpc {
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "protocol.WalletSolidity", "GetNowBlock2"))
-              .setSampledToLocalTracing(true)
+              ////.setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.tron.api.GrpcAPI.EmptyMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -367,7 +367,7 @@ public final class WalletSolidityGrpc {
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "protocol.WalletSolidity", "GetBlockByNum"))
-              .setSampledToLocalTracing(true)
+              ////.setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.tron.api.GrpcAPI.NumberMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -399,7 +399,7 @@ public final class WalletSolidityGrpc {
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "protocol.WalletSolidity", "GetBlockByNum2"))
-              .setSampledToLocalTracing(true)
+              ////.setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.tron.api.GrpcAPI.NumberMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -431,7 +431,7 @@ public final class WalletSolidityGrpc {
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "protocol.WalletSolidity", "GetTransactionCountByBlockNum"))
-              .setSampledToLocalTracing(true)
+              ////.setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.tron.api.GrpcAPI.NumberMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -463,7 +463,7 @@ public final class WalletSolidityGrpc {
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "protocol.WalletSolidity", "GetDelegatedResource"))
-              .setSampledToLocalTracing(true)
+              //.setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.tron.api.GrpcAPI.DelegatedResourceMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -495,7 +495,7 @@ public final class WalletSolidityGrpc {
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "protocol.WalletSolidity", "GetDelegatedResourceAccountIndex"))
-              .setSampledToLocalTracing(true)
+              ////.setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.tron.api.GrpcAPI.BytesMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -527,7 +527,7 @@ public final class WalletSolidityGrpc {
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "protocol.WalletSolidity", "GetExchangeById"))
-              .setSampledToLocalTracing(true)
+              //.setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.tron.api.GrpcAPI.BytesMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -559,7 +559,7 @@ public final class WalletSolidityGrpc {
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "protocol.WalletSolidity", "ListExchanges"))
-              .setSampledToLocalTracing(true)
+              //.setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.tron.api.GrpcAPI.EmptyMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -591,7 +591,7 @@ public final class WalletSolidityGrpc {
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "protocol.WalletSolidity", "GetTransactionById"))
-              .setSampledToLocalTracing(true)
+              //.setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.tron.api.GrpcAPI.BytesMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -623,7 +623,7 @@ public final class WalletSolidityGrpc {
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "protocol.WalletSolidity", "GetTransactionInfoById"))
-              .setSampledToLocalTracing(true)
+              //.setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.tron.api.GrpcAPI.BytesMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -655,7 +655,7 @@ public final class WalletSolidityGrpc {
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "protocol.WalletSolidity", "GenerateAddress"))
-              .setSampledToLocalTracing(true)
+              //.setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.tron.api.GrpcAPI.EmptyMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(

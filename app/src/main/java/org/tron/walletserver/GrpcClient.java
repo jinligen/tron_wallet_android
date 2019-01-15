@@ -1,12 +1,14 @@
 package org.tron.walletserver;
 
+import android.util.Log;
+
 import com.google.protobuf.ByteString;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
-import org.apache.commons.lang.StringUtils;
+//import org.apache.commons.lang.StringUtils;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 import org.tron.api.GrpcAPI;
@@ -69,13 +71,13 @@ public class GrpcClient {
 //  }
 
   public GrpcClient(String fullnode, String soliditynode) {
-    if (!StringUtils.isEmpty(fullnode)) {
+    if (fullnode.length()>0) {
       channelFull = ManagedChannelBuilder.forTarget(fullnode)
           .usePlaintext(true)
           .build();
       blockingStubFull = WalletGrpc.newBlockingStub(channelFull);
     }
-    if (!StringUtils.isEmpty(soliditynode)) {
+    if (soliditynode.length()>0) {
       channelSolidity = ManagedChannelBuilder.forTarget(soliditynode)
           .usePlaintext(true)
           .build();
@@ -402,7 +404,7 @@ public class GrpcClient {
         && i > 0) {
       i--;
       response = blockingStubFull.broadcastTransaction(signaturedTransaction);
-      logger.info("repeate times = " + (11 - i));
+      Log.d("tag", "repeate times = " + (11 - i));
       try {
         Thread.sleep(300);
       } catch (InterruptedException e) {
@@ -410,8 +412,8 @@ public class GrpcClient {
       }
     }
     if (response.getResult() == false) {
-      logger.info("Code = " + response.getCode());
-      logger.info("Message = " + response.getMessage().toStringUtf8());
+      Log.d("tag", "Code = " + response.getCode());
+      Log.d("tag", "Message = " + response.getMessage().toStringUtf8());
     }
     return response.getResult();
   }
