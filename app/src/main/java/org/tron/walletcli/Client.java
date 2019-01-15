@@ -1,8 +1,11 @@
 package org.tron.walletcli;
 
+import android.util.Log;
+
 import com.beust.jcommander.JCommander;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
@@ -57,7 +60,7 @@ import org.tron.walletserver.WalletApi;
 
 public class Client {
 
-  private static final Logger logger = LoggerFactory.getLogger("Client");
+  //private static final Logger logger = LoggerFactory.getLogger("Client");
   private WalletApiWrapper walletApiWrapper = new WalletApiWrapper();
 
   private char[] inputPassword2Twice() throws IOException {
@@ -125,10 +128,10 @@ public class Client {
     StringUtils.clear(password);
 
     if (null == fileName) {
-      logger.info("Register wallet failed !!");
+      Log.d("tag","Register wallet failed !!");
       return;
     }
-    logger.info("Register a wallet successful, keystore file name is " + fileName);
+    Log.d("tag","Register a wallet successful, keystore file name is " + fileName);
   }
 
   private void importWallet() throws CipherException, IOException {
@@ -235,19 +238,19 @@ public class Client {
   private void getAddress() {
     String address = walletApiWrapper.getAddress();
     if (address != null) {
-      logger.info("GetAddress successful !!");
-      logger.info("address = " + address);
+      Log.d("tag","GetAddress successful !!");
+      Log.d("tag","address = " + address);
     }
   }
 
   private void getBalance() {
     Account account = walletApiWrapper.queryAccount();
     if (account == null) {
-      logger.info("GetBalance failed !!!!");
+      Log.d("tag","GetBalance failed !!!!");
 
     } else {
       long balance = account.getBalance();
-      logger.info("Balance = " + balance);
+      Log.d("tag","Balance = " + balance);
     }
   }
 
@@ -265,9 +268,9 @@ public class Client {
 
     Account account = WalletApi.queryAccount(addressBytes);
     if (account == null) {
-      logger.info("GetAccount failed !!!!");
+      Log.d("tag","GetAccount failed !!!!");
     } else {
-      logger.info("\n" + Utils.printAccount(account));
+      Log.d("tag","\n" + Utils.printAccount(account));
     }
   }
 
@@ -281,9 +284,9 @@ public class Client {
 
     Account account = WalletApi.queryAccountById(accountId);
     if (account == null) {
-      logger.info("GetAccountById failed !!!!");
+      Log.d("tag","GetAccountById failed !!!!");
     } else {
-      logger.info("\n" + Utils.printAccount(account));
+      Log.d("tag","\n" + Utils.printAccount(account));
     }
   }
 
@@ -301,9 +304,9 @@ public class Client {
 
     boolean ret = walletApiWrapper.updateAccount(accountNameBytes);
     if (ret) {
-      logger.info("Update Account successful !!!!");
+      Log.d("tag","Update Account successful !!!!");
     } else {
-      logger.info("Update Account failed !!!!");
+      Log.d("tag","Update Account failed !!!!");
     }
   }
 
@@ -320,9 +323,9 @@ public class Client {
 
     boolean ret = walletApiWrapper.setAccountId(accountIdBytes);
     if (ret) {
-      logger.info("Set AccountId successful !!!!");
+      Log.d("tag","Set AccountId successful !!!!");
     } else {
-      logger.info("Set AccountId failed !!!!");
+      Log.d("tag","Set AccountId failed !!!!");
     }
   }
 
@@ -348,9 +351,9 @@ public class Client {
     boolean ret = walletApiWrapper
         .updateAsset(descriptionBytes, urlBytes, newLimit, newPublicLimit);
     if (ret) {
-      logger.info("Update Asset successful !!!!");
+      Log.d("tag","Update Asset successful !!!!");
     } else {
-      logger.info("Update Asset failed !!!!");
+      Log.d("tag","Update Asset failed !!!!");
     }
   }
 
@@ -369,9 +372,9 @@ public class Client {
     Optional<AssetIssueList> result = WalletApi.getAssetIssueByAccount(addressBytes);
     if (result.isPresent()) {
       AssetIssueList assetIssueList = result.get();
-      logger.info(Utils.printAssetIssueList(assetIssueList));
+      Log.d("tag",Utils.printAssetIssueList(assetIssueList));
     } else {
-      logger.info("GetAssetIssueByAccount " + " failed !!");
+      Log.d("tag","GetAssetIssueByAccount " + " failed !!");
     }
   }
 
@@ -389,9 +392,9 @@ public class Client {
 
     AccountNetMessage result = WalletApi.getAccountNet(addressBytes);
     if (result == null) {
-      logger.info("GetAccountNet " + " failed !!");
+      Log.d("tag","GetAccountNet " + " failed !!");
     } else {
-      logger.info("\n" + Utils.printAccountNet(result));
+      Log.d("tag","\n" + Utils.printAccountNet(result));
     }
   }
 
@@ -409,9 +412,9 @@ public class Client {
 
     AccountResourceMessage result = WalletApi.getAccountResource(addressBytes);
     if (result == null) {
-      logger.info("getAccountResource " + " failed !!");
+      Log.d("tag","getAccountResource " + " failed !!");
     } else {
-      logger.info("\n" + Utils.printAccountResourceMessage(result));
+      Log.d("tag","\n" + Utils.printAccountResourceMessage(result));
     }
   }
 
@@ -428,9 +431,9 @@ public class Client {
 
     AssetIssueContract assetIssueContract = WalletApi.getAssetIssueByName(assetName);
     if (assetIssueContract != null) {
-      logger.info("\n" + Utils.printAssetIssue(assetIssueContract));
+      Log.d("tag","\n" + Utils.printAssetIssue(assetIssueContract));
     } else {
-      logger.info("getAssetIssueByName " + " failed !!");
+      Log.d("tag","getAssetIssueByName " + " failed !!");
     }
   }
 
@@ -445,9 +448,9 @@ public class Client {
     Optional<AssetIssueList> result = WalletApi.getAssetIssueListByName(assetName);
     if (result.isPresent()) {
       AssetIssueList assetIssueList = result.get();
-      logger.info(Utils.printAssetIssueList(assetIssueList));
+      Log.d("tag",Utils.printAssetIssueList(assetIssueList));
     } else {
-      logger.info("getAssetIssueListByName " + " failed !!");
+      Log.d("tag","getAssetIssueListByName " + " failed !!");
     }
   }
 
@@ -461,9 +464,9 @@ public class Client {
 
     AssetIssueContract assetIssueContract = WalletApi.getAssetIssueById(assetId);
     if (assetIssueContract != null) {
-      logger.info("\n" + Utils.printAssetIssue(assetIssueContract));
+      Log.d("tag","\n" + Utils.printAssetIssue(assetIssueContract));
     } else {
-      logger.info("getAssetIssueById " + " failed !!");
+      Log.d("tag","getAssetIssueById " + " failed !!");
     }
   }
 
@@ -480,9 +483,9 @@ public class Client {
 
     boolean result = walletApiWrapper.sendCoin(toAddress, amount);
     if (result) {
-      logger.info("Send " + amount + " drop to " + toAddress + " successful !!");
+      Log.d("tag","Send " + amount + " drop to " + toAddress + " successful !!");
     } else {
-      logger.info("Send " + amount + " drop to " + toAddress + " failed !!");
+      Log.d("tag","Send " + amount + " drop to " + toAddress + " failed !!");
     }
   }
 
@@ -511,7 +514,7 @@ public class Client {
       long amount = i;
       boolean result = walletApiWrapper.sendCoin(toAddress, amount);
       if (result) {
-        logger.info("Send " + amount + " drop to " + toAddress + " successful !!");
+        Log.d("tag","Send " + amount + " drop to " + toAddress + " successful !!");
         if (intervalInt > 0) {
           try {
             Thread.sleep(intervalInt);
@@ -521,15 +524,14 @@ public class Client {
           }
         }
       } else {
-        logger.info("Send " + amount + " drop to " + toAddress + " failed !!");
+        Log.d("tag","Send " + amount + " drop to " + toAddress + " failed !!");
         break;
       }
 
       if (!"null".equalsIgnoreCase(assertName)) {
         result = walletApiWrapper.transferAsset(toAddress, assertName, amount);
         if (result) {
-          logger
-              .info(
+          Log.d("tag",
                   "transferAsset " + amount + assertName + " to " + toAddress + " successful !!");
           if (intervalInt > 0) {
             try {
@@ -540,7 +542,7 @@ public class Client {
             }
           }
         } else {
-          logger.info("transferAsset " + amount + assertName + " to " + toAddress + " failed !!");
+          Log.d("tag","transferAsset " + amount + assertName + " to " + toAddress + " failed !!");
           break;
         }
       }
@@ -563,9 +565,9 @@ public class Client {
 
     boolean result = walletApiWrapper.transferAsset(toAddress, assertName, amount);
     if (result) {
-      logger.info("TransferAsset " + amount + " to " + toAddress + " successful !!");
+      Log.d("tag","TransferAsset " + amount + " to " + toAddress + " successful !!");
     } else {
-      logger.info("TransferAsset " + amount + " to " + toAddress + " failed !!");
+      Log.d("TransferAsset " + amount + " to " + toAddress + " failed !!");
     }
   }
 
@@ -584,10 +586,10 @@ public class Client {
 
     boolean result = walletApiWrapper.participateAssetIssue(toAddress, assertName, amount);
     if (result) {
-      logger.info("ParticipateAssetIssue " + assertName + " " + amount + " from " + toAddress
+      Log.d("tag","ParticipateAssetIssue " + assertName + " " + amount + " from " + toAddress
           + " successful !!");
     } else {
-      logger.info("ParticipateAssetIssue " + assertName + " " + amount + " from " + toAddress
+      Log.d("tag","ParticipateAssetIssue " + assertName + " " + amount + " from " + toAddress
           + " failed !!");
     }
   }
@@ -642,9 +644,9 @@ public class Client {
         .assetIssue(name, totalSupply, trxNum, icoNum, precision, startTime, endTime,
             0, description, url, freeAssetNetLimit, publicFreeNetLimit, frozenSupply);
     if (result) {
-      logger.info("AssetIssue " + name + " successful !!");
+      Log.d("tag","AssetIssue " + name + " successful !!");
     } else {
-      logger.info("AssetIssue " + name + " failed !!");
+      Log.d("tag","AssetIssue " + name + " failed !!");
     }
   }
 
@@ -660,9 +662,9 @@ public class Client {
 
     boolean result = walletApiWrapper.createAccount(address);
     if (result) {
-      logger.info("CreateAccount " + " successful !!");
+      Log.d("tag","CreateAccount " + " successful !!");
     } else {
-      logger.info("CreateAccount " + " failed !!");
+      Log.d("tag","CreateAccount " + " failed !!");
     }
   }
 
@@ -678,9 +680,9 @@ public class Client {
 
     boolean result = walletApiWrapper.createWitness(url);
     if (result) {
-      logger.info("CreateWitness " + " successful !!");
+      Log.d("tag","CreateWitness " + " successful !!");
     } else {
-      logger.info("CreateWitness " + " failed !!");
+      Log.d("tag", "CreateWitness " + " failed !!");
     }
   }
 
@@ -696,9 +698,9 @@ public class Client {
 
     boolean result = walletApiWrapper.updateWitness(url);
     if (result) {
-      logger.info("updateWitness " + " successful !!");
+      Log.d("tag","updateWitness " + " successful !!");
     } else {
-      logger.info("updateWitness " + " failed !!");
+      Log.d("tag", "updateWitness " + " failed !!");
     }
   }
 
@@ -706,9 +708,9 @@ public class Client {
     Optional<WitnessList> result = walletApiWrapper.listWitnesses();
     if (result.isPresent()) {
       WitnessList witnessList = result.get();
-      logger.info(Utils.printWitnessList(witnessList));
+      Log.d("tag",Utils.printWitnessList(witnessList));
     } else {
-      logger.info("List witnesses " + " failed !!");
+      Log.d("tag", "List witnesses " + " failed !!");
     }
   }
 
@@ -716,9 +718,9 @@ public class Client {
     Optional<AssetIssueList> result = walletApiWrapper.getAssetIssueList();
     if (result.isPresent()) {
       AssetIssueList assetIssueList = result.get();
-      logger.info(Utils.printAssetIssueList(assetIssueList));
+      Log.d("tag",Utils.printAssetIssueList(assetIssueList));
     } else {
-      logger.info("GetAssetIssueList " + " failed !!");
+      Log.d("tag","GetAssetIssueList " + " failed !!");
     }
   }
 
@@ -734,9 +736,9 @@ public class Client {
     Optional<AssetIssueList> result = walletApiWrapper.getAssetIssueList(offset, limit);
     if (result.isPresent()) {
       AssetIssueList assetIssueList = result.get();
-      logger.info(Utils.printAssetIssueList(assetIssueList));
+      Log.d("tag" ,Utils.printAssetIssueList(assetIssueList));
     } else {
-      logger.info("GetAssetIssueListPaginated " + " failed !!");
+      Log.d("tag", "GetAssetIssueListPaginated " + " failed !!");
     }
   }
 
@@ -752,9 +754,9 @@ public class Client {
     Optional<ProposalList> result = walletApiWrapper.getProposalListPaginated(offset, limit);
     if (result.isPresent()) {
       ProposalList proposalList = result.get();
-      logger.info(Utils.printProposalsList(proposalList));
+      Log.d("tag",Utils.printProposalsList(proposalList));
     } else {
-      logger.info("listproposalspaginated " + " failed !!");
+      Log.d("tag", "listproposalspaginated " + " failed !!");
     }
   }
 
@@ -770,9 +772,9 @@ public class Client {
     Optional<ExchangeList> result = walletApiWrapper.getExchangeListPaginated(offset, limit);
     if (result.isPresent()) {
       ExchangeList exchangeList = result.get();
-      logger.info(Utils.printExchangeList(exchangeList));
+      Log.d("tag",Utils.printExchangeList(exchangeList));
     } else {
-      logger.info("listexchangespaginated " + " failed !!");
+      Log.d("tag", "listexchangespaginated " + " failed !!");
     }
   }
 
@@ -784,11 +786,11 @@ public class Client {
       List<Node> list = nodeList.getNodesList();
       for (int i = 0; i < list.size(); i++) {
         Node node = list.get(i);
-        logger.info("IP::" + ByteArray.toStr(node.getAddress().getHost().toByteArray()));
-        logger.info("Port::" + node.getAddress().getPort());
+        Log.d("tag", "IP::" + ByteArray.toStr(node.getAddress().getHost().toByteArray()));
+        Log.d("tag", "Port::" + node.getAddress().getPort());
       }
     } else {
-      logger.info("GetAssetIssueList " + " failed !!");
+      Log.d("tag", "GetAssetIssueList " + " failed !!");
     }
   }
 
@@ -853,9 +855,9 @@ public class Client {
 
     boolean result = walletApiWrapper.voteWitness(witness);
     if (result) {
-      logger.info("VoteWitness " + " successful !!");
+      Log.d("tag", "VoteWitness " + " successful !!");
     } else {
-      logger.info("VoteWitness " + " failed !!");
+      Log.d("tag", "VoteWitness " + " failed !!");
     }
   }
 
@@ -889,9 +891,9 @@ public class Client {
     boolean result = walletApiWrapper.freezeBalance(frozen_balance, frozen_duration, resourceCode,
         receiverAddress);
     if (result) {
-      logger.info("freezeBalance " + " successful !!");
+      Log.d("tag", "freezeBalance " + " successful !!");
     } else {
-      logger.info("freezeBalance " + " failed !!");
+      Log.d("tag", "freezeBalance " + " failed !!");
     }
   }
 
@@ -906,9 +908,9 @@ public class Client {
     long quantity = Long.parseLong(parameters[0]);
     boolean result = walletApiWrapper.buyStorage(quantity);
     if (result) {
-      logger.info("buyStorage " + " successful !!");
+      Log.d("tag", "buyStorage " + " successful !!");
     } else {
-      logger.info("buyStorage " + " failed !!");
+      Log.d("tag", "buyStorage " + " failed !!");
     }
   }
 
@@ -923,9 +925,9 @@ public class Client {
     long bytes = Long.parseLong(parameters[0]);
     boolean result = walletApiWrapper.buyStorageBytes(bytes);
     if (result) {
-      logger.info("buyStorageBytes " + " successful !!");
+      Log.d("tag", "buyStorageBytes " + " successful !!");
     } else {
-      logger.info("buyStorageBytes " + " failed !!");
+      Log.d("tag", "buyStorageBytes " + " failed !!");
     }
   }
 
@@ -940,9 +942,9 @@ public class Client {
     long storageBytes = Long.parseLong(parameters[0]);
     boolean result = walletApiWrapper.sellStorage(storageBytes);
     if (result) {
-      logger.info("sellStorage " + " successful !!");
+      Log.d("tag", "sellStorage " + " successful !!");
     } else {
-      logger.info("sellStorage " + " failed !!");
+      Log.d("tag", "sellStorage " + " failed !!");
     }
   }
 
@@ -973,9 +975,9 @@ public class Client {
 
     boolean result = walletApiWrapper.unfreezeBalance(resourceCode, receiverAddress);
     if (result) {
-      logger.info("unfreezeBalance " + " successful !!");
+      Log.d("tag", "unfreezeBalance " + " successful !!");
     } else {
-      logger.info("unfreezeBalance " + " failed !!");
+      Log.d("tag", "unfreezeBalance " + " failed !!");
     }
   }
 
@@ -983,9 +985,9 @@ public class Client {
   private void unfreezeAsset() throws IOException, CipherException, CancelException {
     boolean result = walletApiWrapper.unfreezeAsset();
     if (result) {
-      logger.info("unfreezeAsset " + " successful !!");
+      Log.d("tag", "unfreezeAsset " + " successful !!");
     } else {
-      logger.info("unfreezeAsset " + " failed !!");
+      Log.d("tag", "unfreezeAsset " + " failed !!");
     }
   }
 
@@ -1005,9 +1007,9 @@ public class Client {
     }
     boolean result = walletApiWrapper.createProposal(parametersMap);
     if (result) {
-      logger.info("createProposal " + " successful !!");
+      Log.d("tag", "createProposal " + " successful !!");
     } else {
-      logger.info("createProposal " + " failed !!");
+      Log.d("tag", "createProposal " + " failed !!");
     }
   }
 
@@ -1023,9 +1025,9 @@ public class Client {
     boolean is_add_approval = Boolean.valueOf(parameters[1]);
     boolean result = walletApiWrapper.approveProposal(id, is_add_approval);
     if (result) {
-      logger.info("approveProposal " + " successful !!");
+      Log.d("tag", "approveProposal " + " successful !!");
     } else {
-      logger.info("approveProposal " + " failed !!");
+      Log.d("tag", "approveProposal " + " failed !!");
     }
   }
 
@@ -1040,9 +1042,9 @@ public class Client {
     long id = Long.valueOf(parameters[0]);
     boolean result = walletApiWrapper.deleteProposal(id);
     if (result) {
-      logger.info("deleteProposal " + " successful !!");
+      Log.d("tag", "deleteProposal " + " successful !!");
     } else {
-      logger.info("deleteProposal " + " failed !!");
+      Log.d("tag","deleteProposal " + " failed !!");
     }
   }
 
@@ -1051,9 +1053,9 @@ public class Client {
     Optional<ProposalList> result = walletApiWrapper.getProposalsList();
     if (result.isPresent()) {
       ProposalList proposalList = result.get();
-      logger.info(Utils.printProposalsList(proposalList));
+      Log.d("tag",Utils.printProposalsList(proposalList));
     } else {
-      logger.info("List witnesses " + " failed !!");
+      Log.d("tag", "List witnesses " + " failed !!");
     }
   }
 
@@ -1068,9 +1070,9 @@ public class Client {
     Optional<Proposal> result = WalletApi.getProposal(id);
     if (result.isPresent()) {
       Proposal proposal = result.get();
-      logger.info(Utils.printProposal(proposal));
+      Log.d("tag", Utils.printProposal(proposal));
     } else {
-      logger.info("getProposal " + " failed !!");
+      Log.d("tag", "getProposal " + " failed !!");
     }
   }
 
@@ -1087,9 +1089,9 @@ public class Client {
     Optional<DelegatedResourceList> result = WalletApi.getDelegatedResource(fromAddress, toAddress);
     if (result.isPresent()) {
       DelegatedResourceList delegatedResourceList = result.get();
-      logger.info(Utils.printDelegatedResourceList(delegatedResourceList));
+      Log.d("tag", Utils.printDelegatedResourceList(delegatedResourceList));
     } else {
-      logger.info("getDelegatedResource " + " failed !!");
+      Log.d("tag", "getDelegatedResource " + " failed !!");
     }
   }
 
@@ -1105,9 +1107,9 @@ public class Client {
         .getDelegatedResourceAccountIndex(address);
     if (result.isPresent()) {
       DelegatedResourceAccountIndex delegatedResourceAccountIndex = result.get();
-      logger.info(Utils.printDelegatedResourceAccountIndex(delegatedResourceAccountIndex));
+      Log.d("tag", Utils.printDelegatedResourceAccountIndex(delegatedResourceAccountIndex));
     } else {
-      logger.info("getDelegatedResourceAccountIndex " + " failed !!");
+      Log.d("tag", "getDelegatedResourceAccountIndex " + " failed !!");
     }
   }
 
@@ -1128,9 +1130,9 @@ public class Client {
     boolean result = walletApiWrapper.exchangeCreate(firstTokenId, firstTokenBalance,
         secondTokenId, secondTokenBalance);
     if (result) {
-      logger.info("exchange create " + " successful !!");
+      Log.d("tag", "exchange create " + " successful !!");
     } else {
-      logger.info("exchange create " + " failed !!");
+      Log.d("tag", "exchange create " + " failed !!");
     }
   }
 
@@ -1147,9 +1149,9 @@ public class Client {
     long quant = Long.valueOf(parameters[2]);
     boolean result = walletApiWrapper.exchangeInject(exchangeId, tokenId, quant);
     if (result) {
-      logger.info("exchange inject " + " successful !!");
+      Log.d("tag", "exchange inject " + " successful !!");
     } else {
-      logger.info("exchange inject " + " failed !!");
+      Log.d("tag", "exchange inject " + " failed !!");
     }
   }
 
@@ -1166,9 +1168,9 @@ public class Client {
     long quant = Long.valueOf(parameters[2]);
     boolean result = walletApiWrapper.exchangeWithdraw(exchangeId, tokenId, quant);
     if (result) {
-      logger.info("exchange withdraw " + " successful !!");
+      Log.d("tag", "exchange withdraw " + " successful !!");
     } else {
-      logger.info("exchange withdraw " + " failed !!");
+      Log.d("tag", "exchange withdraw " + " failed !!");
     }
   }
 
@@ -1186,9 +1188,9 @@ public class Client {
     long expected = Long.valueOf(parameters[3]);
     boolean result = walletApiWrapper.exchangeTransaction(exchangeId, tokenId, quant, expected);
     if (result) {
-      logger.info("exchange Transaction " + " successful !!");
+      Log.d("tag", "exchange Transaction " + " successful !!");
     } else {
-      logger.info("exchange Transaction " + " failed !!");
+      Log.d("tag", "exchange Transaction " + " failed !!");
     }
   }
 
@@ -1196,9 +1198,9 @@ public class Client {
     Optional<ExchangeList> result = walletApiWrapper.getExchangeList();
     if (result.isPresent()) {
       ExchangeList exchangeList = result.get();
-      logger.info(Utils.printExchangeList(exchangeList));
+      Log.d("tag",Utils.printExchangeList(exchangeList));
     } else {
-      logger.info("List exchanges " + " failed !!");
+      Log.d("tag", "List exchanges " + " failed !!");
     }
   }
 
@@ -1213,31 +1215,31 @@ public class Client {
     Optional<Exchange> result = walletApiWrapper.getExchange(id);
     if (result.isPresent()) {
       Exchange exchange = result.get();
-      logger.info(Utils.printExchange(exchange));
+      Log.d("tag", Utils.printExchange(exchange));
     } else {
-      logger.info("getExchange " + " failed !!");
+      Log.d("tag", "getExchange " + " failed !!");
     }
   }
 
   private void withdrawBalance() throws IOException, CipherException, CancelException {
     boolean result = walletApiWrapper.withdrawBalance();
     if (result) {
-      logger.info("withdrawBalance " + " successful !!");
+      Log.d("tag", "withdrawBalance " + " successful !!");
     } else {
-      logger.info("withdrawBalance " + " failed !!");
+      Log.d("tag", "withdrawBalance " + " failed !!");
     }
   }
 
   private void getTotalTransaction() {
     NumberMessage totalTransition = walletApiWrapper.getTotalTransaction();
-    logger.info("The num of total transactions is : " + totalTransition.getNum());
+    Log.d("tag", "The num of total transactions is : " + totalTransition.getNum());
   }
 
   private void getNextMaintenanceTime() {
     NumberMessage nextMaintenanceTime = walletApiWrapper.getNextMaintenanceTime();
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     String date = formatter.format(nextMaintenanceTime.getNum());
-    logger.info("Next maintenance time is : " + date);
+    Log.d("tag", "Next maintenance time is : " + date);
   }
 
 //  private void getAssetIssueListByTimestamp(String[] parameters) {
@@ -1317,9 +1319,9 @@ public class Client {
     Optional<Transaction> result = WalletApi.getTransactionById(txid);
     if (result.isPresent()) {
       Transaction transaction = result.get();
-      logger.info(Utils.printTransaction(transaction));
+      Log.d("tag", Utils.printTransaction(transaction));
     } else {
-      logger.info("getTransactionById " + " failed !!");
+      Log.d("tag", "getTransactionById " + " failed !!");
     }
   }
 
@@ -1334,9 +1336,9 @@ public class Client {
     Optional<TransactionInfo> result = WalletApi.getTransactionInfoById(txid);
     if (result.isPresent()) {
       TransactionInfo transactionInfo = result.get();
-      logger.info(Utils.printTransactionInfo(transactionInfo));
+      Log.d("tag", Utils.printTransactionInfo(transactionInfo));
     } else {
-      logger.info("getTransactionInfoById " + " failed !!");
+      Log.d("tag", "getTransactionInfoById " + " failed !!");
     }
   }
 
@@ -1453,9 +1455,9 @@ public class Client {
     Optional<Block> result = WalletApi.getBlockById(blockID);
     if (result.isPresent()) {
       Block block = result.get();
-      logger.info(Utils.printBlock(block));
+      Log.d("tag", Utils.printBlock(block));
     } else {
-      logger.info("getBlockById " + " failed !!");
+      Log.d("tag", "getBlockById " + " failed !!");
     }
   }
 
@@ -1731,9 +1733,9 @@ public class Client {
     if (null != result) {
       System.out.println("Address: " + result.getAddress());
       System.out.println("PrivateKey: " + result.getPrivateKey());
-      logger.info("GenerateAddress " + " successful !!");
+      Log.d("tag", "GenerateAddress " + " successful !!");
     } else {
-      logger.info("GenerateAddress " + " failed !!");
+      Log.d("tag", "GenerateAddress " + " failed !!");
     }
   }
 
@@ -2226,7 +2228,7 @@ public class Client {
         System.out.println(e.getMessage());
       } catch (Exception e) {
         System.out.println(cmd + " failed!");
-        logger.error(e.getMessage());
+        Log.d("tag", e.getMessage());
         e.printStackTrace();
       }
     }
@@ -2236,9 +2238,9 @@ public class Client {
     Optional<ChainParameters> result = walletApiWrapper.getChainParameters();
     if (result.isPresent()) {
       ChainParameters chainParameters = result.get();
-      logger.info(Utils.printChainParameters(chainParameters));
+      Log.d("tag", Utils.printChainParameters(chainParameters));
     } else {
-      logger.info("List witnesses " + " failed !!");
+      Log.d("tag", "List witnesses " + " failed !!");
     }
   }
 
