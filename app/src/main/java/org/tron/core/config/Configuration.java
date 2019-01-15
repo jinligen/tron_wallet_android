@@ -18,10 +18,12 @@
 
 package org.tron.core.config;
 
+import android.util.Log;
+
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -35,7 +37,7 @@ public class Configuration {
 
   private static Config config;
 
-  private static final Logger logger = LoggerFactory.getLogger("Configuration");
+  //private static final Logger logger = LoggerFactory.getLogger("Configuration");
 
   /**
    * Get configuration by a given path.
@@ -53,13 +55,13 @@ public class Configuration {
       if(configFile.exists()){
         try {
           config = ConfigFactory.parseReader(new InputStreamReader(new FileInputStream(configurationPath)));
-          logger.info("use user defined config file in current dir");
+          Log.d("tag","use user defined config file in current dir");
         } catch (FileNotFoundException e) {
-          logger.error("load user defined config file exception: " + e.getMessage());
+          Log.d("tag","load user defined config file exception: " + e.getMessage());
         }
       }else {
         config = ConfigFactory.load(configurationPath);
-        logger.info("user defined config file doesn't exists, use default config file in jar");
+        Log.d("tag","user defined config file doesn't exists, use default config file in jar");
       }
     }
     return config;

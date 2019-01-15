@@ -2,7 +2,7 @@ package org.tron.demo;
 
 import java.io.File;
 import java.io.IOException;
-import org.apache.commons.lang.ArrayUtils;
+//import org.apache.commons.lang.ArrayUtils;
 
 public class SelectFileDemo {
 
@@ -13,9 +13,13 @@ public class SelectFileDemo {
     }
 
     File[] childFiles = file.listFiles();
+
+
+    /*
     if (ArrayUtils.isEmpty(childFiles)) {
       return null;
     }
+    */
 
     if (childFiles.length > 1) {
       for (File child : childFiles) {

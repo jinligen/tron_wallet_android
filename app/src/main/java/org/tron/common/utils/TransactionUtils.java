@@ -19,8 +19,8 @@ import com.google.protobuf.ByteString;
 import java.security.SignatureException;
 import java.util.Arrays;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 import org.tron.common.crypto.ECKey;
 import org.tron.common.crypto.ECKey.ECDSASignature;
 import org.tron.common.crypto.Sha256Hash;
@@ -29,7 +29,7 @@ import org.tron.protos.Protocol.Transaction.Contract;
 
 public class TransactionUtils {
 
-  private static final Logger logger = LoggerFactory.getLogger("Transaction");
+  //private static final Logger logger = LoggerFactory.getLogger("Transaction");
 
   /**
    * Obtain a data bytes after removing the id and SHA-256(data)
