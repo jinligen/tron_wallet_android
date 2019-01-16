@@ -1,9 +1,12 @@
 package org.tron.keystore;
 
+import android.content.Context;
+
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.NoSuchAlgorithmException;
@@ -14,6 +17,8 @@ import java.time.format.DateTimeFormatter;
 import org.tron.common.crypto.ECKey;
 import org.tron.common.utils.Utils;
 import org.tron.core.exception.CipherException;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Utility functions for working with Wallet files.
@@ -83,13 +88,16 @@ public class WalletUtils {
     objectMapper.writeValue(source, walletFile);
   }
 
-  public static String generateWalletFile(WalletFile walletFile, File destinationDirectory)
+  public static String generateWalletFile(WalletFile walletFile, File destinationDirectory , Context context)
       throws IOException {
-    String fileName = getWalletFileName(walletFile);
-    File destination = new File(destinationDirectory, fileName);
+    String filename = getWalletFileName(walletFile);
+    ////File destination = new File(destinationDirectory, fileName);
 
-    objectMapper.writeValue(destination, walletFile);
-    return fileName;
+    String filepath =  "tron_" + filename;
+    FileOutputStream fos = context.openFileOutput(filepath, MODE_PRIVATE);//获得FileOutputStream
+
+    objectMapper.writeValue(fos, walletFile);
+    return filename;
   }
 
   //    /**

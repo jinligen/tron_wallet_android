@@ -1,5 +1,6 @@
 package org.tron.walletcli;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.google.protobuf.ByteString;
@@ -32,8 +33,11 @@ public class WalletApiWrapper {
 
   //private static final Logger logger = LoggerFactory.getLogger("WalletApiWrapper");
   private WalletApi wallet;
+  public Context context;
 
-  public String registerWallet(char[] password) throws CipherException, IOException {
+  public String registerWallet(char[] password)
+          throws CipherException, IOException
+  {
     if (!WalletApi.passwordValid(password)) {
       return null;
     }
@@ -43,7 +47,7 @@ public class WalletApiWrapper {
     wallet = new WalletApi(passwd);
     StringUtils.clear(passwd);
 
-    String keystoreName = wallet.store2Keystore();
+    String keystoreName = wallet.store2Keystore("",context);
     logout();
     return keystoreName;
   }
@@ -61,7 +65,7 @@ public class WalletApiWrapper {
     wallet = new WalletApi(passwd, priKey);
     StringUtils.clear(passwd);
 
-    String keystoreName = wallet.store2Keystore();
+    String keystoreName = wallet.store2Keystore("", context);
     logout();
     return keystoreName;
   }

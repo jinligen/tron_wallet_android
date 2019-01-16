@@ -18,6 +18,7 @@
 
 package org.tron.core.config;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.typesafe.config.Config;
@@ -25,6 +26,7 @@ import com.typesafe.config.ConfigFactory;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -66,4 +68,24 @@ public class Configuration {
     }
     return config;
   }
+
+
+  public static Config getByPathInAndroid(Context context) {
+
+    if (config == null) {
+      try {
+        InputStreamReader inputReader = new InputStreamReader( context.getResources().getAssets().open("config.conf") );
+
+        config = ConfigFactory.parseReader(inputReader);
+        Log.d("tag","use user defined config file in current dir");
+      } catch (Exception e) {
+        Log.d("tag","load user defined config file exception: " + e.getMessage());
+      }
+
+    }
+    return config;
+  }
+
+
+
 }

@@ -1,5 +1,6 @@
 package org.tron.walletserver;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.JsonArray;
@@ -112,8 +113,12 @@ public class WalletApi {
 //    }, 3 * 60 * 1000, 3 * 60 * 1000);
 //  }
 
-  public static GrpcClient init() {
+
+
+  static public GrpcClient init() {
     Config config = Configuration.getByPath("config.conf");
+    //Config config = Configuration.getByPathInAndroid("config.conf");
+
 
     String fullNode = "";
     String solidityNode = "";
@@ -133,6 +138,31 @@ public class WalletApi {
     }
     return new GrpcClient(fullNode, solidityNode);
   }
+
+  public void reloadClient(Context context) {
+    //Config config = Configuration.getByPath("config.conf");
+    Config config = Configuration.getByPathInAndroid(context);
+
+
+    String fullNode = "";
+    String solidityNode = "";
+    if (config.hasPath("soliditynode.ip.list")) {
+      solidityNode = config.getStringList("soliditynode.ip.list").get(0);
+    }
+    if (config.hasPath("fullnode.ip.list")) {
+      fullNode = config.getStringList("fullnode.ip.list").get(0);
+    }
+    if (config.hasPath("net.type") && "mainnet".equalsIgnoreCase(config.getString("net.type"))) {
+      WalletApi.setAddressPreFixByte(CommonConstant.ADD_PRE_FIX_BYTE_MAINNET);
+    } else {
+      WalletApi.setAddressPreFixByte(CommonConstant.ADD_PRE_FIX_BYTE_TESTNET);
+    }
+    if (config.hasPath("RPC_version")) {
+      rpcVersion = config.getInt("RPC_version");
+    }
+    rpcCli = new GrpcClient(fullNode, solidityNode);
+  }
+
 
   public static String selectFullNode() {
     Map<String, String> witnessMap = new HashMap<>();
@@ -239,11 +269,14 @@ public class WalletApi {
     return address;
   }
 
-  public String store2Keystore() throws IOException {
+  public String store2Keystore(String fileName, Context c) throws IOException {
     if (walletFile == null) {
       Log.d("tag", "Warning: Store wallet failed, walletFile is null !!");
       return null;
     }
+
+
+    /*
     File file = new File(FilePath);
     if (!file.exists()) {
       if (!file.mkdir()) {
@@ -259,8 +292,9 @@ public class WalletApi {
           throw new IOException("File exists and can not be deleted!");
         }
       }
-    }
-    return WalletUtils.generateWalletFile(walletFile, file);
+    }*/
+      File file = null;
+    return WalletUtils.generateWalletFile(walletFile, file, c);
   }
 
   public static File selcetWalletFile() {

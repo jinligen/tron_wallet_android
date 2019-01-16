@@ -2,11 +2,15 @@ package prochain.com.tronbox.main;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import org.tron.test.Test;
+import org.tron.walletcli.WalletApiWrapper;
+
+import java.io.FileInputStream;
 
 import prochain.com.tronbox.R;
 
@@ -21,19 +25,103 @@ public class TestCenterActivity extends fancyBaseActivity {
         setTitleCenter("测试中心");
 
 
-        Button btn = findViewById(R.id.btn1);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                test1();
-            }
-        });
+        {
+            Button btn = findViewById(R.id.btn1);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    test1();
+                }
+            });
+        }
+        {
+            Button btn = findViewById(R.id.btn2);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    test2();
+                }
+            });
+        }
+
+        {
+            Button btn = findViewById(R.id.btn3);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    readStoreFile();
+                }
+            });
+        }
+
 
     }
 
 
+
+
+
+
+
+
+
+    //key generate
     private void test1()
     {
         Test.testGenKey();
     }
+
+    //register wallet
+    private void test2()
+    {
+
+        WalletApiWrapper walletApi = new WalletApiWrapper();
+        walletApi.context = this;
+
+        try{
+            String fileurl =  walletApi.registerWallet("iI.tronbox".toCharArray());
+            Log.d("wallet", "the register return " + fileurl);
+
+        }catch (Exception e)
+        {
+            Log.d("wallet", "the register fail " + e.toString());
+
+        }
+
+
+
+    }
+
+
+    //read store file
+    private void readStoreFile()
+    {
+        //tron_UTC--2019-01-16T06-53-35.834000000Z--TE219sxVkibLg38uKLiLz5eBiZ8RCLJQR2.json
+        //
+        // this.openFileOutput()
+        try {
+            String filepath = "tron_UTC--2019-01-16T06-53-35.834000000Z--TE219sxVkibLg38uKLiLz5eBiZ8RCLJQR2.json";
+            FileInputStream fis = this.openFileInput(filepath);
+
+            //获取文件长度
+            int lenght = fis.available();
+
+            byte[] buffer = new byte[lenght];
+
+            fis.read(buffer);
+
+            //将byte数组转换成指定格式的字符串
+            String result = new String(buffer, "UTF-8");
+            Log.d("wallet", "the keystore return " + result);
+
+        }
+        catch (Exception e)
+        {
+
+            Log.d("wallet", "the read keystore fail " + e.toString());
+
+        }
+
+    }
+
 }

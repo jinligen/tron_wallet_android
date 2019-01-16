@@ -16,8 +16,23 @@
 
     <Button
         android:id="@+id/btn1"
-        android:text="button1"
+        android:text="key generate"
         android:layout_width="200dp"
         android:layout_height="40dp" />
+
+
+    <Button
+        android:id="@+id/btn2"
+        android:text="registerWallet"
+        android:layout_width="200dp"
+        android:layout_height="40dp" />
+
+    <Button
+        android:id="@+id/btn3"
+        android:text="readStoreFile"
+        android:layout_width="200dp"
+        android:layout_height="40dp" />
+
+
 
 </LinearLayout>
