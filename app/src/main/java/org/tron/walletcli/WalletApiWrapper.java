@@ -88,6 +88,21 @@ public class WalletApiWrapper {
     return result;
   }
 
+    public boolean loginAnroid(char[] password, String keystoreName, Context c) throws IOException, CipherException {
+        logout();
+        wallet = WalletApi.loadWalletFromKeystoreAndroid(keystoreName, c);
+
+        byte[] passwd = StringUtils.char2Byte(password);
+        wallet.checkPassword(passwd);
+        StringUtils.clear(passwd);
+
+        if (wallet == null) {
+            System.out.println("Warning: Login failed, Please registerWallet or importWallet first !!");
+            return false;
+        }
+        wallet.setLogin();
+        return true;
+    }
   public boolean login(char[] password) throws IOException, CipherException {
     logout();
     wallet = WalletApi.loadWalletFromKeystore();

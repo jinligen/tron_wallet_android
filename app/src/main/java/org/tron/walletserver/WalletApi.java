@@ -372,7 +372,19 @@ public class WalletApi {
     return walletApi;
   }
 
-  public Account queryAccount() {
+    public static WalletApi loadWalletFromKeystoreAndroid(String keyStore, Context c)
+            throws IOException {
+
+
+        WalletFile walletFile = WalletUtils.loadWalletFileAndroid(keyStore, c);
+
+        WalletApi walletApi = new WalletApi(walletFile);
+        return walletApi;
+    }
+
+
+
+    public Account queryAccount() {
     return queryAccount(getAddress());
   }
 

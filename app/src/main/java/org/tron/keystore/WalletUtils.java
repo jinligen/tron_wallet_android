@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -141,6 +142,15 @@ public class WalletUtils {
   public static WalletFile loadWalletFile(File source) throws IOException {
    return objectMapper.readValue(source, WalletFile.class);
   }
+
+
+  public static WalletFile loadWalletFileAndroid(String source, Context c) throws IOException {
+    FileInputStream fis =  c.openFileInput(source);
+    return objectMapper.readValue(fis, WalletFile.class);
+  }
+
+
+
 //
 //    public static Credentials loadBip39Credentials(String password, String mnemonic) {
 //        byte[] seed = MnemonicUtils.generateSeed(mnemonic, password);

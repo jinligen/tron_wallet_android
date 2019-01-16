@@ -7,10 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.tron.api.GrpcAPI;
+import org.tron.protos.Protocol;
 import org.tron.test.Test;
 import org.tron.walletcli.WalletApiWrapper;
 
 import java.io.FileInputStream;
+import java.util.Optional;
 
 import prochain.com.tronbox.R;
 
@@ -54,6 +57,17 @@ public class TestCenterActivity extends fancyBaseActivity {
             });
         }
 
+        {
+            Button btn = findViewById(R.id.btn4);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //readStoreFile();
+                    getAccount();
+                }
+            });
+        }
+
 
     }
 
@@ -64,6 +78,50 @@ public class TestCenterActivity extends fancyBaseActivity {
 
 
 
+
+    private void getNodelist()
+    {
+
+        WalletApiWrapper walletApi = new WalletApiWrapper();
+        walletApi.context = this;
+
+        Optional<GrpcAPI.NodeList> result = walletApi.listNodes();
+        Log.d("wallet", "the node list  return " + result.toString());
+
+        Protocol.Account account =  walletApi.queryAccount();
+
+        Log.d("wallet", "get account return " + account.toString());
+
+    }
+
+    private void getAccount()
+    {
+
+        String filepath = "tron_UTC--2019-01-16T06-53-35.834000000Z--TE219sxVkibLg38uKLiLz5eBiZ8RCLJQR2.json";
+
+        WalletApiWrapper walletApi = new WalletApiWrapper();
+        walletApi.context = this;
+        try {
+          boolean blogin =   walletApi.loginAnroid("iI.tronbox".toCharArray(),filepath, this);
+            Log.d("wallet", "the login return " + blogin);
+
+            String address =  walletApi.getAddress();
+            Log.d("wallet", "get address return " + address);
+
+
+
+            Protocol.Account account =  walletApi.queryAccount();
+
+            Log.d("wallet", "get account return " + account.toString());
+
+
+        }catch (Exception e)
+        {
+            Log.d("wallet", "the login error " + e.toString());
+
+        }
+
+    }
 
     //key generate
     private void test1()
