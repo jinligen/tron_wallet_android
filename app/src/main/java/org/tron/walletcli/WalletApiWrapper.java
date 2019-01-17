@@ -70,7 +70,7 @@ public class WalletApiWrapper {
     return keystoreName;
   }
 
-  public boolean changePassword(char[] oldPassword, char[] newPassword)
+  public boolean changePassword(char[] oldPassword, char[] newPassword, String keystore, Context c)
       throws IOException, CipherException {
     logout();
     if (!WalletApi.passwordValid(newPassword)) {
@@ -81,7 +81,7 @@ public class WalletApiWrapper {
     byte[] oldPasswd = StringUtils.char2Byte(oldPassword);
     byte[] newPasswd = StringUtils.char2Byte(newPassword);
 
-    boolean result = WalletApi.changeKeystorePassword(oldPasswd, newPasswd);
+    boolean result = WalletApi.changeKeystorePassword(oldPasswd, newPasswd, keystore, c);
     StringUtils.clear(oldPasswd);
     StringUtils.clear(newPasswd);
 

@@ -340,15 +340,10 @@ public class WalletApi {
     return wallet;
   }
 
-  public static boolean changeKeystorePassword(byte[] oldPassword, byte[] newPassowrd)
+  public static boolean changeKeystorePassword(byte[] oldPassword, byte[] newPassowrd, String keystore, Context c)
       throws IOException, CipherException {
-    File wallet = selcetWalletFile();
-    if (wallet == null) {
-      throw new IOException(
-          "No keystore file found, please use registerwallet or importwallet first!");
-    }
-    Credentials credentials = WalletUtils.loadCredentials(oldPassword, wallet);
-    WalletUtils.updateWalletFile(newPassowrd, credentials.getEcKeyPair(), wallet, true);
+    Credentials credentials = WalletUtils.loadCredentialsAndroie(oldPassword, keystore, c);
+    WalletUtils.updateWalletFile(newPassowrd, credentials.getEcKeyPair(), keystore, c, true);
     return true;
   }
 

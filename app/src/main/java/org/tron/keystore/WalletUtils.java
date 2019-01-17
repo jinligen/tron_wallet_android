@@ -76,17 +76,22 @@ public class WalletUtils {
   }
 
   public static void updateWalletFile(
-      byte[] password, ECKey ecKeyPair, File source, boolean useFullScrypt)
+      byte[] password, ECKey ecKeyPair, String keystore, Context c,  boolean useFullScrypt)
       throws CipherException, IOException {
 
-    WalletFile walletFile = objectMapper.readValue(source, WalletFile.class);
+    FileInputStream fis =  c.openFileInput(keystore);
+    WalletFile walletFile = objectMapper.readValue(fis, WalletFile.class);
+    fis.close();
     if (useFullScrypt) {
       walletFile = Wallet.createStandard(password, ecKeyPair);
     } else {
       walletFile = Wallet.createLight(password, ecKeyPair);
     }
 
-    objectMapper.writeValue(source, walletFile);
+
+    FileOutputStream fos = c.openFileOutput(keystore, MODE_PRIVATE);
+    objectMapper.writeValue(fos, walletFile);
+    fos.close();
   }
 
   public static String generateWalletFile(WalletFile walletFile, File destinationDirectory , Context context)
@@ -133,6 +138,16 @@ public class WalletUtils {
 //        return loadCredentials(password, new File(source));
 //    }
 //
+
+
+  public static Credentials loadCredentialsAndroie(byte[] password, String fileSource, Context c)
+          throws IOException, CipherException
+  {
+    FileInputStream fis =  c.openFileInput(fileSource);
+    WalletFile walletFile = objectMapper.readValue(fis, WalletFile.class);
+    return Credentials.create(Wallet.decrypt(password, walletFile));
+
+  }
   public static Credentials loadCredentials(byte[] password, File source)
       throws IOException, CipherException {
     WalletFile walletFile = objectMapper.readValue(source, WalletFile.class);

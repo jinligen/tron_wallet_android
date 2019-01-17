@@ -170,11 +170,6 @@ public class Client {
     System.out.println("Please input new password.");
     char[] newPassword = inputPassword2Twice();
 
-    if (walletApiWrapper.changePassword(oldPassword, newPassword)) {
-      System.out.println("ChangePassword successful !!");
-    } else {
-      System.out.println("ChangePassword failed !!");
-    }
     StringUtils.clear(oldPassword);
     StringUtils.clear(newPassword);
   }

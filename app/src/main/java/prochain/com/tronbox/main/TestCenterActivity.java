@@ -25,6 +25,9 @@ public class TestCenterActivity extends fancyBaseActivity {
 
     private String localWalletPwd = "iI.tronbox";
 
+    private String localWalletPwd_2 = "kK.tronbox";
+
+
     private String keystore = "tron_UTC--2019-01-16T06-53-35.834000000Z--TE219sxVkibLg38uKLiLz5eBiZ8RCLJQR2.json";
 
 
@@ -88,6 +91,16 @@ public class TestCenterActivity extends fancyBaseActivity {
         }
 
 
+
+        {
+            Button btn = findViewById(R.id.btn6);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    changeWalletPwd();
+                }
+            });
+        }
     }
 
 
@@ -95,6 +108,23 @@ public class TestCenterActivity extends fancyBaseActivity {
 
 
 
+
+    private void changeWalletPwd()
+    {
+        WalletApiWrapper walletApi = new WalletApiWrapper();
+        walletApi.context = this;
+
+        try {
+            walletApi.changePassword(localWalletPwd.toCharArray(), localWalletPwd_2.toCharArray(), keystore, this);
+        }
+        catch (Exception e)
+        {
+            Log.d("wallet", "change pwd error " + e.toString());
+
+        }
+
+
+    }
 
 
 
@@ -121,7 +151,7 @@ public class TestCenterActivity extends fancyBaseActivity {
         WalletApiWrapper walletApi = new WalletApiWrapper();
         walletApi.context = this;
         try {
-          boolean blogin =   walletApi.loginAnroid("iI.tronbox".toCharArray(),filepath, this);
+          boolean blogin =   walletApi.loginAnroid(localWalletPwd_2.toCharArray(),filepath, this);
             Log.d("wallet", "the login return " + blogin);
 
             String address =  walletApi.getAddress();
@@ -156,7 +186,7 @@ public class TestCenterActivity extends fancyBaseActivity {
         walletApi.context = this;
 
         try{
-            String fileurl =  walletApi.registerWallet("iI.tronbox".toCharArray());
+            String fileurl =  walletApi.registerWallet(localWalletPwd_2.toCharArray());
             Log.d("wallet", "the register return " + fileurl);
 
         }catch (Exception e)
@@ -211,7 +241,7 @@ public class TestCenterActivity extends fancyBaseActivity {
         walletApi.context = this;
 
         try{
-            byte[] priKey = walletApi.backupWallet(localWalletPwd.toCharArray(), keystore, this);
+            byte[] priKey = walletApi.backupWallet(localWalletPwd_2.toCharArray(), keystore, this);
             System.out.println("BackupWallet successful ");
             for (int i = 0; i < priKey.length; i++) {
                 StringUtils.printOneByte(priKey[i]);
