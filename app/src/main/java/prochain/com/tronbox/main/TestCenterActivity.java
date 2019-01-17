@@ -8,16 +8,25 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import org.tron.api.GrpcAPI;
+import org.tron.keystore.StringUtils;
 import org.tron.protos.Protocol;
 import org.tron.test.Test;
 import org.tron.walletcli.WalletApiWrapper;
 
 import java.io.FileInputStream;
+import java.util.Base64;
 import java.util.Optional;
 
 import prochain.com.tronbox.R;
 
 public class TestCenterActivity extends fancyBaseActivity {
+
+
+
+    private String localWalletPwd = "iI.tronbox";
+
+    private String keystore = "tron_UTC--2019-01-16T06-53-35.834000000Z--TE219sxVkibLg38uKLiLz5eBiZ8RCLJQR2.json";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +73,16 @@ public class TestCenterActivity extends fancyBaseActivity {
                 public void onClick(View view) {
                     //readStoreFile();
                     getAccount();
+                }
+            });
+        }
+
+        {
+            Button btn = findViewById(R.id.btn5);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    backupWallet();
                 }
             });
         }
@@ -181,5 +200,45 @@ public class TestCenterActivity extends fancyBaseActivity {
         }
 
     }
+
+
+
+    private void backupWallet()
+    {
+
+
+        WalletApiWrapper walletApi = new WalletApiWrapper();
+        walletApi.context = this;
+
+        try{
+            byte[] priKey = walletApi.backupWallet(localWalletPwd.toCharArray(), keystore, this);
+            System.out.println("BackupWallet successful ");
+            for (int i = 0; i < priKey.length; i++) {
+                StringUtils.printOneByte(priKey[i]);
+            }
+
+
+            Base64.Encoder encoder = Base64.getEncoder();
+            byte[] priKey64 = encoder.encode(priKey);
+            StringUtils.clear(priKey);
+            System.out.println("BackupWallet successful base64");
+            for (int i = 0; i < priKey64.length; i++) {
+                System.out.print((char) priKey64[i]);
+            }
+
+
+            System.out.println();
+            StringUtils.clear(priKey64);
+
+        }
+        catch ( Exception e)
+        {
+            Log.d("wallet", "backup wallet fail " + e.toString());
+
+        }
+
+    }
+
+
 
 }

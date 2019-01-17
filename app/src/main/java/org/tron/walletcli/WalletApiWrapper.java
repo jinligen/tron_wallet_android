@@ -128,11 +128,11 @@ public class WalletApiWrapper {
   }
 
   //password is current, will be enc by password2.
-  public byte[] backupWallet(char[] password) throws IOException, CipherException {
+  public byte[] backupWallet(char[] password, String keystore, Context c) throws IOException, CipherException {
     byte[] passwd = StringUtils.char2Byte(password);
 
     if (wallet == null || !wallet.isLoginState()) {
-      wallet = WalletApi.loadWalletFromKeystore();
+      wallet = WalletApi.loadWalletFromKeystoreAndroid(keystore, c);
 
       if (wallet == null) {
         StringUtils.clear(passwd);

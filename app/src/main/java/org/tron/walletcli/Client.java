@@ -202,23 +202,14 @@ public class Client {
     System.out.println("Please input your password.");
     char[] password = Utils.inputPassword(false);
 
-    byte[] priKey = walletApiWrapper.backupWallet(password);
-    StringUtils.clear(password);
 
-    if (!ArrayUtils.isEmpty(priKey)) {
-      System.out.println("BackupWallet successful !!");
-      for (int i = 0; i < priKey.length; i++) {
-        StringUtils.printOneByte(priKey[i]);
-      }
-      System.out.println();
-    }
-    StringUtils.clear(priKey);
   }
 
   private void backupWallet2Base64() throws IOException, CipherException {
     System.out.println("Please input your password.");
     char[] password = Utils.inputPassword(false);
 
+    /*
     byte[] priKey = walletApiWrapper.backupWallet(password);
     StringUtils.clear(password);
 
@@ -233,6 +224,7 @@ public class Client {
       System.out.println();
       StringUtils.clear(priKey64);
     }
+    */
   }
 
   private void getAddress() {
