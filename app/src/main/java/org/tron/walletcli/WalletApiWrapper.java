@@ -5,10 +5,21 @@ import android.util.Log;
 
 import com.google.protobuf.ByteString;
 import java.io.IOException;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
+import org.bouncycastle.util.encoders.Hex;
+import org.tron.abi.FunctionReturnDecoder;
+import org.tron.abi.TypeReference;
+import org.tron.abi.datatypes.Address;
+import org.tron.abi.datatypes.Function;
+import org.tron.abi.datatypes.generated.AbiTypes;
 import org.tron.api.GrpcAPI;
 import org.tron.api.GrpcAPI.AddressPrKeyPairMessage;
 import org.tron.api.GrpcAPI.AssetIssueList;
@@ -17,11 +28,17 @@ import org.tron.api.GrpcAPI.ExchangeList;
 import org.tron.api.GrpcAPI.NodeList;
 import org.tron.api.GrpcAPI.ProposalList;
 import org.tron.api.GrpcAPI.WitnessList;
+import org.tron.common.crypto.ECKey;
+import org.tron.common.crypto.Sha256Hash;
+import org.tron.common.utils.AbiUtil;
+import org.tron.common.utils.ByteArray;
+import org.tron.common.utils.TransactionUtils;
 import org.tron.core.exception.CancelException;
 import org.tron.core.exception.CipherException;
 import org.tron.keystore.StringUtils;
 import org.tron.protos.Contract;
 import org.tron.protos.Contract.AssetIssueContract;
+import org.tron.protos.Protocol;
 import org.tron.protos.Protocol.Account;
 import org.tron.protos.Protocol.Block;
 import org.tron.protos.Protocol.ChainParameters;
@@ -35,7 +52,10 @@ public class WalletApiWrapper {
   private WalletApi wallet;
   public Context context;
 
-  public String registerWallet(char[] password)
+  private static ECKey ecKey = null;
+
+
+    public String registerWallet(char[] password)
           throws CipherException, IOException
   {
     if (!WalletApi.passwordValid(password)) {
@@ -683,5 +703,194 @@ public class WalletApiWrapper {
 
     return wallet.triggerContract(contractAddress, callValue, data, feeLimit, tokenValue, tokenId);
   }
+
+
+
+  public Protocol.SmartContract getContract(String address) throws Exception {
+    return wallet.getContract(WalletApi.decodeFromBase58Check(address));
+  }
+
+  public Protocol.SmartContract.ABI getContractABI(String address) throws Exception {
+    return getContract(address).getAbi();
+  }
+
+  public String triggerContract(String contractAddress, String functionName, String functionParams) {
+    try {
+      Map<String, String> signedMethods = new HashMap<>();
+      Map<String, Function> functionMap = new HashMap<>();
+      Protocol.SmartContract.ABI abi = getContractABI(contractAddress);
+
+      for (Protocol.SmartContract.ABI.Entry entry : abi.getEntrysList()) {
+        String name = entry.getName();
+        StringBuilder methodStr = new StringBuilder(name);
+        methodStr.append("(");
+        if (entry.getInputsList() != null && entry.getInputsList().size() > 0) {
+          for (int j = 0; j < entry.getInputsList().size(); j++) {
+            Protocol.SmartContract.ABI.Entry.Param param = entry.getInputsList().get(j);
+            String inputName = param.getName();
+            String type = param.getType();
+            methodStr.append(type);
+            if (j != entry.getInputsList().size() - 1) {
+              methodStr.append(",");
+            }
+          }
+        }
+        methodStr.append(")");
+        signedMethods.put(name, methodStr.toString());
+
+        List<Protocol.SmartContract.ABI.Entry.Param> outputList = entry.getOutputsList();
+        List<TypeReference<?>> outputParaList = new ArrayList<>();
+        if (outputList != null && outputList.size() > 0) {
+          for (int j = 0; j < outputList.size(); j++) {
+            String type = outputList.get(j).getType();
+            outputParaList.add(AbiTypes.getTypeReference(type, false));
+          }
+        }
+        Function functionForReturn = new Function(entry.getName(),
+                Collections.emptyList(), outputParaList);
+        functionMap.put(name, functionForReturn);
+      }
+
+      byte[] data = Hex.decode(AbiUtil.parseMethod(signedMethods.get(functionName), functionParams, false));
+      byte[] owner = wallet.getAddress();
+      byte[] contractAddressBytes = WalletApi.decodeFromBase58Check(contractAddress);
+      Contract.TriggerSmartContract triggerSmartContract = Contract.TriggerSmartContract.newBuilder()
+              .setOwnerAddress(ByteString.copyFrom(owner)).setContractAddress(ByteString.copyFrom(contractAddressBytes))
+              .setData(ByteString.copyFrom(data)).setCallValue(0).build();
+      GrpcAPI.TransactionExtention transactionExtention = WalletApi.rpcCli.triggerContract(triggerSmartContract);
+      if (transactionExtention == null || !transactionExtention.getResult().getResult()) {
+        System.out.println("RPC create call trx failed!");
+        System.out.println("Code = " + transactionExtention.getResult().getCode());
+        System.out.println("Message = " + transactionExtention.getResult().getMessage().toStringUtf8());
+        return "";
+      }
+
+      String transactionId;
+      if (transactionExtention.getConstantResultCount() > 0) {
+        byte[] result = transactionExtention.getConstantResult(0).toByteArray();
+        System.out.println("message:" + transactionExtention.getTransaction().getRet(0).getRet());
+        System.out.println(":" + ByteArray.toStr(transactionExtention.getResult().getMessage().toByteArray()));
+        transactionId = Hex.toHexString(transactionExtention.getTxid().toByteArray());
+        StringBuilder rawBuilder = new StringBuilder();
+        transactionExtention.getConstantResultList().forEach(r -> {
+          rawBuilder.append(Hex.toHexString(r.toByteArray()));
+        });
+        Function function = functionMap.get(functionName);
+        List<org.tron.abi.datatypes.Type> output = null;
+        StringBuilder outputBuilder = new StringBuilder();
+        if (function != null) {
+          output = FunctionReturnDecoder.decode(rawBuilder.toString(), function.getOutputParameters());
+          for (int i = 0; i < output.size(); i++) {
+            if (output.get(i) instanceof Address) {
+              String hexTronAddress = ((Address) output.get(i)).toUint160().getValue()
+                      .or(new BigInteger("410000000000000000000000000000000000000000", 16))
+                      .toString(16);
+              outputBuilder.append(WalletApi.encode58Check(Hex.decode(hexTronAddress)));
+            } else {
+              outputBuilder.append(output.get(i).getValue());
+            }
+            if (i != output.size() - 1) {
+              outputBuilder.append(",");
+            }
+          }
+        }
+        System.out.println("transaction_id:" + transactionId);
+        System.out.println("contract_result:" + (function == null ? rawBuilder.toString() : outputBuilder.toString()));
+        return transactionId;
+      }
+
+      GrpcAPI.TransactionExtention.Builder texBuilder = GrpcAPI.TransactionExtention.newBuilder();
+      Protocol.Transaction.Builder transBuilder = Protocol.Transaction.newBuilder();
+      Protocol.Transaction.raw.Builder rawBuilder = transactionExtention.getTransaction().getRawData()
+              .toBuilder();
+      rawBuilder.setFeeLimit(100 * 1000000l);
+      transBuilder.setRawData(rawBuilder);
+      for (int i = 0; i < transactionExtention.getTransaction().getSignatureCount(); i++) {
+        ByteString s = transactionExtention.getTransaction().getSignature(i);
+        transBuilder.setSignature(i, s);
+      }
+      for (int i = 0; i < transactionExtention.getTransaction().getRetCount(); i++) {
+        Protocol.Transaction.Result r = transactionExtention.getTransaction().getRet(i);
+        transBuilder.setRet(i, r);
+      }
+      texBuilder.setTransaction(transBuilder);
+      texBuilder.setResult(transactionExtention.getResult());
+      texBuilder.setTxid(transactionExtention.getTxid());
+      transactionExtention = texBuilder.build();
+
+      processTransactionExtention(transactionExtention);
+
+
+      transactionId = Hex.toHexString(Sha256Hash.of(transactionExtention.getTransaction().getRawData().toByteArray()).getBytes());
+      return transactionId;
+
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    return "";
+  }
+
+  public boolean processTransactionExtention(GrpcAPI.TransactionExtention transactionExtention) {
+    GrpcAPI.Return ret = transactionExtention.getResult();
+    if (!ret.getResult()) {
+      System.out.println("Code = " + ret.getCode());
+      System.out.println("Message = " + ret.getMessage().toStringUtf8());
+      return false;
+    }
+    Protocol.Transaction transaction = transactionExtention.getTransaction();
+    if (transaction == null || transaction.getRawData().getContractCount() == 0) {
+      System.out.println("Transaction is empty");
+      return false;
+    }
+    System.out.println(
+            "Receive unsigned txid = " + ByteArray
+                    .toHexString(transactionExtention.getTxid().toByteArray()));
+    transaction = signTransaction(transaction);
+    return wallet.rpcCli.broadcastTransaction(transaction);
+  }
+
+  public Protocol.TransactionInfo getTransaction(String transactionId) {
+    Protocol.TransactionInfo transactionInfo = WalletApi.rpcCli.getTransactionInfoById(transactionId).get();
+    StringBuilder rawBuilder1 = new StringBuilder();
+    transactionInfo.getContractResultList().forEach(result -> {
+      rawBuilder1.append(Hex.toHexString(result.toByteArray()));
+    });
+//        Function function = functionMap.get(functionName);
+//        List<org.tron.abi.datatypes.Type> output = null;
+//        StringBuilder outputBuilder = new StringBuilder();
+//        if (function != null) {
+//            output = FunctionReturnDecoder.decode(rawBuilder1.toString(), function.getOutputParameters());
+//            for (int i = 0; i < output.size(); i++) {
+//                if (output.get(i) instanceof Address) {
+//                    String hexTronAddress = ((Address) output.get(i)).toUint160().getValue()
+//                            .or(new BigInteger("410000000000000000000000000000000000000000", 16))
+//                            .toString(16);
+//                    outputBuilder.append(WalletApi.encode58Check(Hex.decode(hexTronAddress)));
+//                } else {
+//                    outputBuilder.append(output.get(i).getValue());
+//                }
+//                if (i != output.size() - 1) {
+//                    outputBuilder.append(",");
+//                }
+//            }
+//        }
+    return transactionInfo;
+  }
+
+  public Protocol.Transaction signTransaction(Protocol.Transaction transaction) {
+    if (transaction.getRawData().getTimestamp() == 0) {
+      transaction = TransactionUtils.setTimestamp(transaction);
+    }
+
+    System.out.println(
+            "Signed txid = " + ByteArray
+                    .toHexString(Sha256Hash.hash(transaction.getRawData().toByteArray())));
+    transaction = TransactionUtils.sign(transaction, ecKey);
+    return transaction;
+  }
+
+
 
 }

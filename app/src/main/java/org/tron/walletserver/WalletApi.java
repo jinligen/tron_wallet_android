@@ -99,7 +99,7 @@ public class WalletApi {
   private static byte addressPreFixByte = CommonConstant.ADD_PRE_FIX_BYTE_TESTNET;
   private static int rpcVersion = 0;
 
-  private static GrpcClient rpcCli = init();
+  public static GrpcClient rpcCli = init();
 
 //  static {
 //    new Timer().schedule(new TimerTask() {
@@ -572,12 +572,23 @@ public class WalletApi {
     }
   }
 
-  public static boolean broadcastTransaction(byte[] transactionBytes)
+  public  boolean sendTransaction(byte[] transactionBytes)
       throws InvalidProtocolBufferException {
     Transaction transaction = Transaction.parseFrom(transactionBytes);
     return TransactionUtils.validTransaction(transaction)
         && rpcCli.broadcastTransaction(transaction);
   }
+
+
+ static   public  boolean broadcastTransaction(byte[] transactionBytes)
+          throws InvalidProtocolBufferException {
+    Transaction transaction = Transaction.parseFrom(transactionBytes);
+    return TransactionUtils.validTransaction(transaction)
+            && rpcCli.broadcastTransaction(transaction);
+  }
+
+
+
 
   public boolean createAssetIssue(Contract.AssetIssueContract contract)
       throws CipherException, IOException, CancelException {
