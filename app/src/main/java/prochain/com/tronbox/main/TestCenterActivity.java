@@ -109,6 +109,9 @@ public class TestCenterActivity extends fancyBaseActivity {
 
 
 
+
+
+
     private void changeWalletPwd()
     {
         WalletApiWrapper walletApi = new WalletApiWrapper();

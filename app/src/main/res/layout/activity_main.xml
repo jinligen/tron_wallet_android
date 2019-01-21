@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -16,4 +16,71 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-</android.support.constraint.ConstraintLayout>
+
+
+
+
+    <com.yinglan.alphatabs.AlphaTabsIndicator
+        android:layout_alignParentBottom="true"
+        android:id="@+id/alphaIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <com.yinglan.alphatabs.AlphaTabView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="5dp"
+
+            app:tabIconNormal="@mipmap/tab_discover"
+            app:tabIconSelected="@mipmap/tab_discover_selected"
+            app:tabText="首页"
+            app:tabTextSize="12sp"
+            app:textColorNormal="@color/gray_8888"
+            app:textColorSelected="@color/color_main_blue"
+            app:badgeBackgroundColor="@color/white"
+            app:paddingTexwithIcon="5dp"/>
+
+        <com.yinglan.alphatabs.AlphaTabView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="5dp"
+
+            app:tabIconNormal="@mipmap/tab_wallet"
+            app:tabIconSelected="@mipmap/tab_wallet_selected"
+            app:tabText="钱包"
+            app:tabTextSize="12sp"
+            app:textColorNormal="@color/gray_8888"
+            app:textColorSelected="@color/color_main_blue"
+            app:badgeBackgroundColor="@color/white"
+            app:paddingTexwithIcon="5dp"/>
+
+        <com.yinglan.alphatabs.AlphaTabView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="5dp"
+
+            app:tabIconNormal="@mipmap/tab_me"
+            app:tabIconSelected="@mipmap/tab_me_selected"
+            app:tabText="我的"
+            app:tabTextSize="12sp"
+            app:textColorNormal="@color/gray_8888"
+            app:textColorSelected="@color/color_main_blue"
+            app:badgeBackgroundColor="@color/white"
+            app:paddingTexwithIcon="5dp"/>
+
+
+    </com.yinglan.alphatabs.AlphaTabsIndicator>
+
+
+    <!-- VIewPager 主要是加载内容的 -->
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_marginBottom="50dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</RelativeLayout>
