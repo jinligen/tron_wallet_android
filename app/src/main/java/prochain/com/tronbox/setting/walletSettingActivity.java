@@ -1,11 +1,13 @@
 package prochain.com.tronbox.setting;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -26,7 +28,7 @@ public class walletSettingActivity extends fancyBaseActivity {
     private CommonPopupWindow popupWindow;
 
 
-
+    private RelativeLayout eos_private_key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,13 @@ public class walletSettingActivity extends fancyBaseActivity {
         setTitleCenter("钱包设置");
 
 
-
+        eos_private_key = findViewById(R.id.eos_private_key);
+        eos_private_key.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startPopupWalletPwd(0);
+            }
+        });
 
 
     }
@@ -138,8 +146,23 @@ public class walletSettingActivity extends fancyBaseActivity {
 
 
 
-    private void startPrivateKey(String privatekey)
+    private void startPrivateKey(String walletkey)
     {
+
+
+        //todo
+        String filepath = "tron_UTC--2019-01-16T06-53-35.834000000Z--TE219sxVkibLg38uKLiLz5eBiZ8RCLJQR2.json";
+
+        Intent intent = new Intent(this, exportPrivatekeyActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("walletpwd", walletkey);
+        bundle.putString("filepath", filepath);
+
+
+        intent.putExtras(bundle);
+
+
+        startActivity(intent);
 
     }
 

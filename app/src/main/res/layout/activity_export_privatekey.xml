@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="prochain.com.tronbox.setting.exportPrivatekeyActivity">
+
+<include
+    android:id="@+id/titleview"
+    layout="@layout/title_bar" />
+
+
+<prochain.com.tronbox.Views.userDefineScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:text="私钥用于恢复钱包或重置钱包密码"
+            android:textSize="13sp"
+            android:textColor="@color/color_888888"
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:text="将私钥抄写在安全的地方，不要保存到网络或电子设备上"
+            android:textSize="13sp"
+            android:textColor="@color/color_888888"
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:text="公钥"
+            android:textSize="14sp"
+            android:textColor="@color/colorFontBlack"
+            android:layout_width="200dp"
+            android:layout_height="20dp" />
+
+
+        <TextView
+            android:id="@+id/eos_public_key"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/border_corner"
+            android:gravity="top"
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:text="私钥"
+            android:textSize="14sp"
+            android:textColor="@color/colorFontBlack"
+            android:layout_width="200dp"
+            android:layout_height="20dp" />
+
+        <TextView
+            android:id="@+id/eos_private_key"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/border_corner"
+            android:gravity="top"
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+
+
+
+
+        <RelativeLayout
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:textAllCaps="false"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/private_key_copy_btn"
+                android:textColor="@color/white"
+                android:text="复制私钥"
+                android:background="@mipmap/blue_btn_bg"
+                android:layout_width="200dp"
+                android:layout_height="50dp" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+</prochain.com.tronbox.Views.userDefineScrollView>
+</LinearLayout>

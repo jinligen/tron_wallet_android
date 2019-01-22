@@ -23,15 +23,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".main.TestCenterActivity"
+        <activity
+            android:name=".main.TestCenterActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".setting.walletSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".setting.walletSettingActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".setting.exportPrivatekeyActivity"></activity>
     </application>
 
 </manifest>
