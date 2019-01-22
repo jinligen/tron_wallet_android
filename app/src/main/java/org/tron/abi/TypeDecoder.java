@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.function.BiFunction;
 
 /**
- * <p>Ethereum Contract Application Binary Interface (ABI) decoding for types.
+ * <p>Ethereum Contract prochain.com.tronbox.utils.fancyApplication Binary Interface (ABI) decoding for types.
  * Decoding is not documented, but is the reverse of the encoding details located
  * <a href="https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI">here</a>.
  * </p>

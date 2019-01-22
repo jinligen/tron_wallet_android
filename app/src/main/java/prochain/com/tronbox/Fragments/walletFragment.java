@@ -1,4 +1,4 @@
-package prochain.com.tronbox;
+package prochain.com.tronbox.Fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -7,6 +7,9 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import prochain.com.tronbox.R;
+import prochain.com.tronbox.StatusBarUtils;
 
 
 /**

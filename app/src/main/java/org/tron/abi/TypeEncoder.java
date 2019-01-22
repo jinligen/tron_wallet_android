@@ -10,7 +10,7 @@ import static org.tron.abi.datatypes.Type.MAX_BIT_LENGTH;
 import static org.tron.abi.datatypes.Type.MAX_BYTE_LENGTH;
 
 /**
- * <p>Ethereum Contract Application Binary Interface (ABI) encoding for types.
+ * <p>Ethereum Contract prochain.com.tronbox.utils.fancyApplication Binary Interface (ABI) encoding for types.
  * Further details are available
  * <a href="https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI">here</a>.
  * </p>

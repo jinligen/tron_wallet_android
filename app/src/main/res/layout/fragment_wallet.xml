@@ -1,8 +1,11 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="prochain.com.tronbox.walletFragment">
+    android:orientation="vertical"
+
+
+    tools:context="prochain.com.tronbox.Fragments.walletFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -24,4 +27,181 @@
 
     </RelativeLayout>
 
-</FrameLayout>
+    <RelativeLayout
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@mipmap/eos_wallet_bg">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="EOS账号"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/total_assest"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:id="@+id/wallet_eos_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="46dp"
+            android:text="admin"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="25sp" />
+
+
+        <Button
+            android:id="@+id/resource_manage"
+            android:layout_width="75dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="53dp"
+            android:background="@mipmap/eos_wallet_btn_bg"
+            android:text="资源管理"
+            android:textColor="#FFAA2F" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:background="@drawable/shape_eos_wallet_banner"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginTop="5dp">
+
+            <ImageView
+                android:id="@+id/ram_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:src="@mipmap/ram_icon" />
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="18dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="14dp"
+                android:layout_toRightOf="@id/ram_icon"
+                android:text="内存 (RAM)"
+                android:textColor="@color/color_323232"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/ram_params"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:text="0.00KB/0.00KB"
+                android:textColor="@color/color_888888"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <ImageView
+                android:id="@+id/cpu_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:src="@mipmap/cpu_icon" />
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="18dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="14dp"
+                android:layout_toRightOf="@id/cpu_icon"
+                android:text="算力 (CPU)"
+                android:textColor="@color/color_323232"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/cpu_params"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:text="0.00MS/0.00MS"
+                android:textColor="@color/color_888888"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <ImageView
+                android:id="@+id/net_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:src="@mipmap/net_icon" />
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="18dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="14dp"
+                android:layout_toRightOf="@id/net_icon"
+                android:text="带宽 (NET)"
+                android:textColor="@color/color_323232"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/net_params"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:text="0.00KB/0.00KB"
+                android:textColor="@color/color_888888"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:background="@color/color_f5f5f5"
+        android:layout_width="match_parent"
+        android:layout_height="13dp"></View>
+
+
+
+</LinearLayout>

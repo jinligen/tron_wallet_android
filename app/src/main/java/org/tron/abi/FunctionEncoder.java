@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * <p>Ethereum Contract Application Binary Interface (ABI) encoding for functions.
+ * <p>Ethereum Contract prochain.com.tronbox.utils.fancyApplication Binary Interface (ABI) encoding for functions.
  * Further details are available
  * <a href="https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI">here</a>.
  * </p>

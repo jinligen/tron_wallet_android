@@ -19,6 +19,9 @@ import com.yinglan.alphatabs.OnTabChangedListner;
 import java.util.ArrayList;
 import java.util.List;
 
+import prochain.com.tronbox.Fragments.homeFragment;
+import prochain.com.tronbox.Fragments.settingFragment;
+import prochain.com.tronbox.Fragments.walletFragment;
 import prochain.com.tronbox.main.TestCenterActivity;
 
 public class MainActivity extends AppCompatActivity {

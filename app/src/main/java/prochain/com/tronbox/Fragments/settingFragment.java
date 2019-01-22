@@ -1,37 +1,31 @@
-package prochain.com.tronbox;
+package prochain.com.tronbox.Fragments;
 
 import android.content.Context;
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.AdapterView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import prochain.com.tronbox.R;
+import prochain.com.tronbox.SettingAdapter;
+import prochain.com.tronbox.SettingListInfo;
 import prochain.com.tronbox.Views.SettingSrollView;
+import prochain.com.tronbox.main.TestCenterActivity;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link settingFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link settingFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class settingFragment extends android.support.v4.app.Fragment {
 
 
     private SettingSrollView mScrollView;
 
     private RelativeLayout mIv;
-    private List<String> mList;
+    private List<SettingListInfo> mList;
 
 
     public settingFragment() {
@@ -101,11 +95,40 @@ public class settingFragment extends android.support.v4.app.Fragment {
 
         SettingAdapter adapter = new SettingAdapter(getActivity(), mList);
         mScrollView.setAdapter(adapter);
+
+        mScrollView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
+                switch (position) {
+                    case 1: {
+                        startTest();
+                        break;
+                    }
+
+                    default:
+                        break;
+
+                }
+
+
+            }
+        });
+
     }
 
 
     public void setData()
     {
+        SettingListInfo info1 = new SettingListInfo(R.mipmap.setting_wallet_icon,"钱包管理", "", R.mipmap.setting_enter_icon);
+        mList.add(info1);
 
+    }
+
+
+    private void startTest()
+    {
+        Intent intent = new Intent(getActivity(), TestCenterActivity.class);
+        startActivity(intent);
     }
 }

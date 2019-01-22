@@ -56,6 +56,8 @@ dependencies {
         exclude group: 'com.google.protobuf', module: 'protobuf-java'
     }
 
+    compile 'com.android.support:multidex:1.0.1'
+
 
     compile 'com.madgag.spongycastle:core:1.54.0.0'
     compile 'com.madgag.spongycastle:prov:1.54.0.0'

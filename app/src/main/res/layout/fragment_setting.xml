@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="prochain.com.tronbox.settingFragment">
+    tools:context="prochain.com.tronbox.Fragments.settingFragment">
 
 
 
