@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import org.tron.api.GrpcAPI;
+import org.tron.common.crypto.ECKey;
 import org.tron.common.utils.ByteArray;
 import org.tron.common.utils.Utils;
 import org.tron.keystore.StringUtils;
@@ -157,6 +158,17 @@ public class TestCenterActivity extends fancyBaseActivity {
             Log.d("wallet", "please login first");
             return ;
         }
+
+        String contractAddress = "THBE7KgFSP6zWrfJh7yp4gfZd9VCfPcbws";
+
+        String method = "click";
+        String params = "1";
+
+        String privateKey = "fa3bad461a2cf1f9bf779ed4e508850ce78acd86d43c3159836fa811612cee19";
+        walletApi.ecKey = ECKey.fromPrivate(ByteArray.fromHexString(privateKey));
+        //ClickEvent
+        walletApi.triggerContract(contractAddress,method, params);
+
 
     }
 

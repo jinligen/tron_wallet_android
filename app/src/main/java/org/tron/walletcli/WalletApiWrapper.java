@@ -52,7 +52,7 @@ public class WalletApiWrapper {
   private WalletApi wallet;
   public Context context;
 
-  private static ECKey ecKey = null;
+  public  ECKey ecKey = null;
 
 
     public String registerWallet(char[] password)
