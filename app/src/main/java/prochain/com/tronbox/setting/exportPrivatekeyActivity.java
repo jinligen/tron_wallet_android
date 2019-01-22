@@ -33,8 +33,10 @@ public class exportPrivatekeyActivity extends fancyBaseActivity {
 
     ClipboardManager myClipboard;
 
+
     public fancyLoadingView loading;
 
+    static private int SHOW_ERROR = 1;
     public Handler handler = new Handler()
     {
         @Override
@@ -43,6 +45,11 @@ public class exportPrivatekeyActivity extends fancyBaseActivity {
             if(msg.what == COMPLETED)
             {
                 loading.dismiss();
+            }
+            if(msg.what==SHOW_ERROR)
+            {
+                ToastUtils.toastShort(exportPrivatekeyActivity.this, "私钥解析失败，请重试钱包密码");
+
             }
         }
     };
@@ -130,7 +137,7 @@ public class exportPrivatekeyActivity extends fancyBaseActivity {
 
             sendDissMissLoading();
             Log.d("wallet", "the register fail " + e.toString());
-            ToastUtils.toastShort(exportPrivatekeyActivity.this, "私钥解析失败，请重试钱包密码");
+            ShowError();
 
         }
 
@@ -144,9 +151,17 @@ public class exportPrivatekeyActivity extends fancyBaseActivity {
         handler.sendMessage(msg);
     }
 
+    public void ShowError()
+    {
+        Message msg = new Message();
+        msg.what = SHOW_ERROR;
+        handler.sendMessage(msg);
+    }
+
+
 
     public static String bytesToHex(byte[] bytes) {
-        char[] hexArray = "0123456789ABCDEF".toCharArray();
+        char[] hexArray = "0123456789abcdef".toCharArray();
         char[] hexChars = new char[bytes.length * 2];
         for ( int j = 0; j < bytes.length; j++ ) {
             int v = bytes[j] & 0xFF;
