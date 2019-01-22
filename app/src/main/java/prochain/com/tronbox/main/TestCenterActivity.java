@@ -37,6 +37,7 @@ public class TestCenterActivity extends fancyBaseActivity {
 
     private WalletApiWrapper walletApi;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,6 +120,28 @@ public class TestCenterActivity extends fancyBaseActivity {
         }
 
 
+        {
+            Button btn = findViewById(R.id.btn8);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    callReadContract();
+
+                }
+            });
+        }
+
+
+        {
+            Button btn = findViewById(R.id.btn9);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    callSignContract();
+
+                }
+            });
+        }
 
     }
 
@@ -127,8 +150,29 @@ public class TestCenterActivity extends fancyBaseActivity {
 
 
 
+    private void callSignContract()
+    {
+        if (walletApi==null)
+        {
+            Log.d("wallet", "please login first");
+            return ;
+        }
 
+    }
 
+    private void callReadContract()
+    {
+        if (walletApi==null)
+        {
+            Log.d("wallet", "please login first");
+            return ;
+        }
+
+        //contract push TK11RC2sFpvxPJUDW45wMCbvNpctSL4KuQ getUser “TWuDgresypbz5bHPBuZe22GDYcpufhs5EZ”
+
+        walletApi.triggerContract("TK11RC2sFpvxPJUDW45wMCbvNpctSL4KuQ","getUser", "\"TWuDgresypbz5bHPBuZe22GDYcpufhs5EZ\"");
+
+    }
 
     private void tranferTron()
     {
@@ -140,12 +184,15 @@ public class TestCenterActivity extends fancyBaseActivity {
 
 
 
-        String toAddress = "TWuDgresypbz5bHPBuZe22GDYcpufhs5EZ";
+        //String toAddress = "TWuDgresypbz5bHPBuZe22GDYcpufhs5EZ";  //account: huang
+        String toAddress = "TGzCCWNYxEJSUvjFXSHgLEMLafAwCXWATL"; // account: fancy
+
+
         String privateKey = "fa3bad461a2cf1f9bf779ed4e508850ce78acd86d43c3159836fa811612cee19";
 
         GrpcAPI.EasyTransferResponse response = WalletApi
                 .easyTransferByPrivate(ByteArray.fromHexString(privateKey),
-                        WalletApi.decodeFromBase58Check(toAddress), 1000000L);
+                        WalletApi.decodeFromBase58Check(toAddress),  1000000L);
 
         if (response.getResult().getResult() == true) {
             Protocol.Transaction transaction = response.getTransaction();
