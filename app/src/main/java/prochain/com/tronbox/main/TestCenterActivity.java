@@ -8,13 +8,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import org.tron.api.GrpcAPI;
-import org.tron.common.utils.ByteArray;
-import org.tron.common.utils.Utils;
 import org.tron.keystore.StringUtils;
 import org.tron.protos.Protocol;
 import org.tron.test.Test;
 import org.tron.walletcli.WalletApiWrapper;
-import org.tron.walletserver.WalletApi;
 
 import java.io.FileInputStream;
 import java.util.Base64;
@@ -33,9 +30,6 @@ public class TestCenterActivity extends fancyBaseActivity {
 
     private String keystore = "tron_UTC--2019-01-16T06-53-35.834000000Z--TE219sxVkibLg38uKLiLz5eBiZ8RCLJQR2.json";
 
-
-
-    private WalletApiWrapper walletApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +75,7 @@ public class TestCenterActivity extends fancyBaseActivity {
                 @Override
                 public void onClick(View view) {
                     //readStoreFile();
-                    login_getAccount();
+                    getAccount();
                 }
             });
         }
@@ -107,19 +101,6 @@ public class TestCenterActivity extends fancyBaseActivity {
                 }
             });
         }
-
-        {
-            Button btn = findViewById(R.id.btn7);
-            btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    tranferTron();
-                }
-            });
-        }
-
-
-
     }
 
 
@@ -129,38 +110,6 @@ public class TestCenterActivity extends fancyBaseActivity {
 
 
 
-
-    private void tranferTron()
-    {
-        if (walletApi==null)
-        {
-            Log.d("wallet", "please login first");
-            return ;
-        }
-
-
-
-        String toAddress = "TWuDgresypbz5bHPBuZe22GDYcpufhs5EZ";
-        String privateKey = "fa3bad461a2cf1f9bf779ed4e508850ce78acd86d43c3159836fa811612cee19";
-
-        GrpcAPI.EasyTransferResponse response = WalletApi
-                .easyTransferByPrivate(ByteArray.fromHexString(privateKey),
-                        WalletApi.decodeFromBase58Check(toAddress), 1000000L);
-
-        if (response.getResult().getResult() == true) {
-            Protocol.Transaction transaction = response.getTransaction();
-            System.out.println("Easy transfer successful!!!");
-            System.out.println(
-                    "Receive txid = " + ByteArray.toHexString(response.getTxid().toByteArray()));
-            System.out.println(Utils.printTransaction(transaction));
-        } else {
-            System.out.println("Easy transfer failed!!!");
-            System.out.println("Code = " + response.getResult().getCode());
-            System.out.println("Message = " + response.getResult().getMessage().toStringUtf8());
-        }
-
-
-    }
 
 
     private void changeWalletPwd()
@@ -185,11 +134,6 @@ public class TestCenterActivity extends fancyBaseActivity {
     private void getNodelist()
     {
 
-        if (walletApi==null)
-        {
-            Log.d("wallet", "please login first");
-            return ;
-        }
         WalletApiWrapper walletApi = new WalletApiWrapper();
         walletApi.context = this;
 
@@ -202,15 +146,13 @@ public class TestCenterActivity extends fancyBaseActivity {
 
     }
 
-    private void login_getAccount()
+    private void getAccount()
     {
 
         String filepath = "tron_UTC--2019-01-16T06-53-35.834000000Z--TE219sxVkibLg38uKLiLz5eBiZ8RCLJQR2.json";
 
-        walletApi = new WalletApiWrapper();
+        WalletApiWrapper walletApi = new WalletApiWrapper();
         walletApi.context = this;
-
-
         try {
           boolean blogin =   walletApi.loginAnroid(localWalletPwd_2.toCharArray(),filepath, this);
             Log.d("wallet", "the login return " + blogin);
@@ -297,13 +239,9 @@ public class TestCenterActivity extends fancyBaseActivity {
     private void backupWallet()
     {
 
-        if (walletApi==null)
-        {
-            Log.d("wallet", "please login first");
-            return ;
-        }
 
-
+        WalletApiWrapper walletApi = new WalletApiWrapper();
+        walletApi.context = this;
 
         try{
             byte[] priKey = walletApi.backupWallet(localWalletPwd_2.toCharArray(), keystore, this);
