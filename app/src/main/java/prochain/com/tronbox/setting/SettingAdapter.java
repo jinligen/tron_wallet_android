@@ -1,4 +1,4 @@
-package prochain.com.tronbox;
+package prochain.com.tronbox.setting;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import prochain.com.tronbox.R;
 
 
 /**

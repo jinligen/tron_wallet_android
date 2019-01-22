@@ -1,0 +1,64 @@
+package prochain.com.tronbox.utils.MessageBus;
+
+/**
+ * Created by alex on 2017/6/9.
+ */
+
+public enum EventType {
+
+
+
+
+    EVENT_TYPE_POPUP_DISMISS,
+
+    //for loading dismiss
+    EVENT_TYPE_LOADING_DISMISS,
+
+
+
+    //for switch eth wallet create
+    EVENT_TYPE_SWITCH_ETH_CREATE,
+
+    //for scan login
+    EVENT_TYPE_LOGIN_SUCCESS,
+    EVENT_TYPE_LOGIN_FAILED,
+
+
+    // for  ram
+    EVENT_TYPE_BUY_RAM_OK,
+    EVENT_TYPE_BUY_RAM_FAIL,
+    EVENT_TYPE_SELL_RAM_OK,
+    EVENT_TYPE_SELL_RAM_FAIL,
+
+    // for cpu
+    EVENT_TYPE_BUY_CPU_OK,
+    EVENT_TYPE_BUY_CPU_FAIL,
+    EVENT_TYPE_SELL_CPU_OK,
+    EVENT_TYPE_SELL_CPU_FAIL,
+
+    // for net
+    EVENT_TYPE_BUY_NET_OK,
+    EVENT_TYPE_BUY_NET_FAIL,
+    EVENT_TYPE_SELL_NET_OK,
+    EVENT_TYPE_SELL_NET_FAIL,
+
+    //for share
+    EVENT_TYPE_SHARE_SUCCESS,
+    EVENT_TYPE_SHARE_FAILED,
+    EVENT_TYPE_SHARE_CANCEL,
+
+
+    EVENT_TYPE_SIMPLEWALLET_LOGIN_CANCEL,
+    EVENT_TYPE_SIMPLEWALLET_LOGIN_FAILED,
+    EVENT_TYPE_SIMPLEWALLET_LOGIN_SUCCESS,
+
+
+    /////for test:
+    EVENT_TYPE_START_MAIN_TEST,
+    EVENT_TYPE_START_HTTP_TEST,
+
+
+    EVENT_TYPE_PIC_TEST, EVENT_TYPE_WEB_LOAD_URL, REMOVE_CALL_BACK, BANNER_DOWN, BANNER_UP, JUMP_MAPPING;
+
+
+}

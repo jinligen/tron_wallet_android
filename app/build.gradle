@@ -88,6 +88,8 @@ dependencies {
 
 
     compile 'com.yinglan.alphatabs:library:1.0.8'
+    compile 'org.greenrobot:eventbus:3.0.0'
+
 
 
 }

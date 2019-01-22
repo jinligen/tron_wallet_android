@@ -1,4 +1,4 @@
-package prochain.com.tronbox;
+package prochain.com.tronbox.setting;
 
 
 public class SettingListInfo {

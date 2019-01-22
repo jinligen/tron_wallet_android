@@ -754,6 +754,7 @@ public class WalletApiWrapper {
       byte[] data = Hex.decode(AbiUtil.parseMethod(signedMethods.get(functionName), functionParams, false));
       byte[] owner = wallet.getAddress();
       byte[] contractAddressBytes = WalletApi.decodeFromBase58Check(contractAddress);
+
       Contract.TriggerSmartContract triggerSmartContract = Contract.TriggerSmartContract.newBuilder()
               .setOwnerAddress(ByteString.copyFrom(owner)).setContractAddress(ByteString.copyFrom(contractAddressBytes))
               .setData(ByteString.copyFrom(data)).setCallValue(0).build();

@@ -13,10 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import prochain.com.tronbox.R;
-import prochain.com.tronbox.SettingAdapter;
-import prochain.com.tronbox.SettingListInfo;
+import prochain.com.tronbox.setting.SettingAdapter;
+import prochain.com.tronbox.setting.SettingListInfo;
 import prochain.com.tronbox.Views.SettingSrollView;
 import prochain.com.tronbox.main.TestCenterActivity;
+import prochain.com.tronbox.setting.walletSettingActivity;
 
 
 public class settingFragment extends android.support.v4.app.Fragment {
@@ -101,8 +102,13 @@ public class settingFragment extends android.support.v4.app.Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
                 switch (position) {
-                    case 1: {
+                    case 0:
+                    {
                         startTest();
+                        break;
+                    }
+                    case 1: {
+                        startSetting();
                         break;
                     }
 
@@ -129,6 +135,12 @@ public class settingFragment extends android.support.v4.app.Fragment {
     private void startTest()
     {
         Intent intent = new Intent(getActivity(), TestCenterActivity.class);
+        startActivity(intent);
+    }
+
+    private void startSetting()
+    {
+        Intent intent = new Intent(getActivity(), walletSettingActivity.class);
         startActivity(intent);
     }
 }
