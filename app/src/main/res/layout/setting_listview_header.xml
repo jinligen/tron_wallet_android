@@ -24,17 +24,19 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="80dp"
-            android:src="@mipmap/display_photo" />
+            android:src="@mipmap/aboutme" />
 
         <TextView
             android:id="@+id/user_avatar_tx"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="88dp"
-            android:layout_marginTop="82dp"
-            android:text=""
+            android:layout_alignStart="@+id/kyc_cell_status"
+            android:layout_alignTop="@+id/user_avatar_icon"
+            android:text="Pra般若糖果盒"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
             android:visibility="visible" />
 
         <TextView
