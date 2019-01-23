@@ -22,6 +22,7 @@ import java.util.Base64;
 import java.util.Optional;
 
 import prochain.com.tronbox.R;
+import prochain.com.tronbox.utils.fancyDataCenter;
 
 public class TestCenterActivity extends fancyBaseActivity {
 
@@ -269,14 +270,17 @@ public class TestCenterActivity extends fancyBaseActivity {
         walletApi = new WalletApiWrapper();
         walletApi.context = this;
 
+        fancyDataCenter.getInstance().setCurrentTronPath(filepath);
+
 
         try {
-          boolean blogin =   walletApi.loginAnroid(localWalletPwd_2.toCharArray(),filepath, this);
+             boolean blogin =   walletApi.loginAnroid(localWalletPwd_2.toCharArray(),filepath, this);
             Log.d("wallet", "the login return " + blogin);
 
+            fancyDataCenter.getInstance().walletApi = walletApi;
             String address =  walletApi.getAddress();
             Log.d("wallet", "get address return " + address);
-
+            fancyDataCenter.getInstance().setTronAddress(address);
 
 
             Protocol.Account account =  walletApi.queryAccount();

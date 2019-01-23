@@ -20,6 +20,9 @@ public class fancyApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        // 初始化图片加载
+        singleton = this;
     }
 
     public static fancyApplication getInstance() {

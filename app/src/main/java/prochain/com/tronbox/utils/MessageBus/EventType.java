@@ -9,6 +9,9 @@ public enum EventType {
 
 
 
+
+    EVENT_TYPE_FRESH_TRON_DATA,
+
     EVENT_TYPE_POPUP_DISMISS,
 
     //for loading dismiss

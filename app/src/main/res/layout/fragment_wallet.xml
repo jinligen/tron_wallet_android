@@ -41,29 +41,29 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
-            android:text="EOS账号"
+            android:text="Tron账号"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/total_assest"
+            android:id="@+id/address"
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:text=""
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
 
         <TextView
-            android:id="@+id/wallet_eos_account"
+            android:id="@+id/wallet_tron_balance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="46dp"
-            android:text="admin"
+            android:text="0.00"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="25sp" />
 
@@ -120,7 +120,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="20dp"
-                android:text="0.00KB/0.00KB"
+                android:text="0"
                 android:textColor="@color/color_888888"
                 android:textSize="12sp" />
         </RelativeLayout>
@@ -144,7 +144,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="14dp"
                 android:layout_toRightOf="@id/cpu_icon"
-                android:text="算力 (CPU)"
+                android:text="能量 (Energy)"
                 android:textColor="@color/color_323232"
                 android:textSize="12sp" />
 
@@ -155,7 +155,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="20dp"
-                android:text="0.00MS/0.00MS"
+                android:text="0"
                 android:textColor="@color/color_888888"
                 android:textSize="12sp" />
         </RelativeLayout>
@@ -173,12 +173,12 @@
                 android:src="@mipmap/net_icon" />
 
             <TextView
-                android:layout_width="80dp"
+                android:layout_width="180dp"
                 android:layout_height="18dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="14dp"
                 android:layout_toRightOf="@id/net_icon"
-                android:text="带宽 (NET)"
+                android:text="带宽 (Bandwidth)"
                 android:textColor="@color/color_323232"
                 android:textSize="12sp" />
 
@@ -189,7 +189,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="20dp"
-                android:text="0.00KB/0.00KB"
+                android:text="0"
                 android:textColor="@color/color_888888"
                 android:textSize="12sp" />
         </RelativeLayout>

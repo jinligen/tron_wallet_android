@@ -49,7 +49,7 @@ import org.tron.walletserver.WalletApi;
 public class WalletApiWrapper {
 
   //private static final Logger logger = LoggerFactory.getLogger("WalletApiWrapper");
-  private WalletApi wallet;
+  public WalletApi wallet;
   public Context context;
 
   public  ECKey ecKey = null;
@@ -177,7 +177,9 @@ public class WalletApiWrapper {
   }
 
   public Account queryAccount() {
-    if (wallet == null || !wallet.isLoginState()) {
+    //if (wallet == null || !wallet.isLoginState())
+    if (wallet==null)
+    {
       Log.d("tag", "Warning: QueryAccount failed,  Please login first !!");
       return null;
     }

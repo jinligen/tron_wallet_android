@@ -7,6 +7,8 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
+import org.tron.walletcli.WalletApiWrapper;
+
 import java.util.ArrayList;
 
 /**
@@ -26,9 +28,13 @@ public class fancyDataCenter {
 
 
 
+    public  WalletApiWrapper walletApi;
+
+
 
     public String DEVICE_CLIENT_ID = "device_client_id";
     public String USER_TRON_ADDRESS = "user_tron_address";
+    public String USER_TRON_FILE_PATH = "user_tron_filepath";
 
     ///end of key
 
@@ -55,7 +61,7 @@ public class fancyDataCenter {
     public void initData()
     {
         Context context =  fancyApplication.getInstance().getApplicationContext();
-
+        walletApi = null;
 
 
     }
@@ -84,11 +90,6 @@ public class fancyDataCenter {
 
     }
 
-
-
-
-
-
     public void setTronAddress(String tronAddress)
     {
         Context context =  fancyApplication.getInstance().getApplicationContext();
@@ -96,6 +97,28 @@ public class fancyDataCenter {
 
     }
 
+
+
+    public String getCurrentTronPath()
+    {
+        Context context =  fancyApplication.getInstance().getApplicationContext();
+        String filepath =    (String)fancyObjSaveUtil.readObject(context,USER_TRON_FILE_PATH);
+
+        if (filepath==null)
+        {
+            filepath = "";
+        }
+        return filepath;
+    }
+
+
+
+    public void setCurrentTronPath(String filepath)
+    {
+        Context context =  fancyApplication.getInstance().getApplicationContext();
+        fancyObjSaveUtil.saveObject(context,filepath,USER_TRON_FILE_PATH);
+
+    }
 
 
 

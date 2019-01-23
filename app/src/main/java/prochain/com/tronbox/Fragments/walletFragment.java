@@ -1,56 +1,47 @@
 package prochain.com.tronbox.Fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import org.tron.api.GrpcAPI;
+import org.tron.common.utils.ByteArray;
+import org.tron.keystore.Wallet;
+import org.tron.protos.Protocol;
+import org.tron.walletcli.WalletApiWrapper;
+import org.tron.walletserver.WalletApi;
+
+import java.util.Optional;
 
 import prochain.com.tronbox.R;
 import prochain.com.tronbox.StatusBarUtils;
+import prochain.com.tronbox.utils.fancyDataCenter;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link walletFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link walletFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class walletFragment extends android.support.v4.app.Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    TextView wallet_tron_balance;
+    TextView net_params;
+    TextView cpu_params;
+
+
+    String addr;
 
     public walletFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment walletFragment.
-     */
-    // TODO: Rename and change types and number of parameters
+
     public static walletFragment newInstance(String param1, String param2) {
         walletFragment fragment = new walletFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -67,16 +58,96 @@ public class walletFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_wallet, container, false);
+        View v = inflater.inflate(R.layout.fragment_wallet, container, false);
+
+        TextView address = v.findViewById(R.id.address);
+        return  v;
 
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+
+    }
+
+
+
+    static int initLoad = 0;
+
+    public void onResume()
+    {
+        super.onResume();
+        View v = getView();
+
+        TextView address = v.findViewById(R.id.address);
+        wallet_tron_balance = v.findViewById(R.id.wallet_tron_balance);
+        net_params = v.findViewById(R.id.net_params);
+        cpu_params = v.findViewById(R.id.cpu_params);
+        addr = fancyDataCenter.getInstance().getTronAddress();
+        address.setText(addr);
+
+
+
+    }
+
+
+    public void freshData()
+    {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                updateAccount(addr);
+            }
+        }).start();
+    }
+
+    private void updateAccount(String addr)
+    {
+        try {
+            WalletApiWrapper walletApi = fancyDataCenter.getInstance().walletApi;
+            if (walletApi==null)
+            {
+                walletApi = new WalletApiWrapper();
+                walletApi.context = getActivity();
+            }
+
+
+            Protocol.Account account =  WalletApi.queryAccount(WalletApi.decodeFromBase58Check(addr));
+
+
+            Log.d("wallet", "the account is " + account);
+
+            Optional<GrpcAPI.AssetIssueList> list =  WalletApi.getAssetIssueByAccount( WalletApi.decodeFromBase58Check(addr));
+            Log.d("wallet", "the account asset list is " + list);
+
+            GrpcAPI.AccountResourceMessage resource = WalletApi.getAccountResource( WalletApi.decodeFromBase58Check(addr));
+
+            Log.d("wallet", "the account resource is " + resource);
+
+            getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+                    double balance = account.getBalance() / 1000000;
+                    wallet_tron_balance.setText(balance + "");
+
+                    net_params.setText(resource.getFreeNetLimit() + "");
+
+                    cpu_params.setText(resource.getEnergyLimit()-resource.getEnergyUsed() + "");
+                }
+            });
+
+
+
+        }catch (Exception e)
+        {
+            Log.d("wallet", "the login error " + e.toString());
+
         }
+
     }
+
 
     @Override
     public void onAttach(Context context) {
@@ -86,21 +157,7 @@ public class walletFragment extends android.support.v4.app.Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
+
 }

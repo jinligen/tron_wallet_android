@@ -3,6 +3,8 @@ package prochain.com.tronbox;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.View;
+import android.view.ViewGroup;
 
 import java.util.List;
 
@@ -28,4 +30,6 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return mfragmentList.size();
     }
+
+
 }

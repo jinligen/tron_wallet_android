@@ -16,6 +16,9 @@ import android.widget.TextView;
 import com.yinglan.alphatabs.AlphaTabsIndicator;
 import com.yinglan.alphatabs.OnTabChangedListner;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +26,8 @@ import prochain.com.tronbox.Fragments.homeFragment;
 import prochain.com.tronbox.Fragments.settingFragment;
 import prochain.com.tronbox.Fragments.walletFragment;
 import prochain.com.tronbox.main.TestCenterActivity;
+import prochain.com.tronbox.utils.MessageBus.EventType;
+import prochain.com.tronbox.utils.MessageBus.MessageEvent;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -83,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        EventBus.getDefault().register(this);
 
         setStatusBar(Color.WHITE);
 
@@ -106,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
         adapter = new MyPagerAdapter(getSupportFragmentManager(),fragmentList);
         viewPager.setAdapter(adapter);
+
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -114,7 +121,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-
+                if (position==1)
+                {
+                    MessageEvent msg = new MessageEvent("dismiss", EventType.EVENT_TYPE_FRESH_TRON_DATA);
+                    EventBus.getDefault().post(msg);
+                }
             }
 
             @Override
@@ -143,4 +154,21 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, TestCenterActivity.class);
         startActivity(intent);
     }
+
+
+    // This method will be called when a MessageEvent is posted
+    @Subscribe
+    public void onMessageEvent(MessageEvent event) {
+        if (event.type == EventType.EVENT_TYPE_FRESH_TRON_DATA) {
+           wallet.freshData();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+
+    }
+
 }
