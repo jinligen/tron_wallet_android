@@ -25,6 +25,21 @@
             android:textSize="18sp" />
 
 
+
+        <TextView
+            android:id="@+id/chain_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:text="链上记录"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp" />
+
+
+
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -69,14 +84,14 @@
 
 
         <Button
-            android:id="@+id/resource_manage"
+            android:id="@+id/transfer"
             android:layout_width="75dp"
             android:layout_height="25dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
             android:layout_marginTop="53dp"
             android:background="@mipmap/eos_wallet_btn_bg"
-            android:text="资源管理"
+            android:text="转账"
             android:textColor="#FFAA2F" />
 
     </RelativeLayout>

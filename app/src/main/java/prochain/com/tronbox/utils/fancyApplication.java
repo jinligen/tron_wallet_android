@@ -4,6 +4,9 @@ import android.content.Context;
 
 import android.support.multidex.MultiDexApplication;
 
+import prochain.com.tronbox.utils.loader.GlideImageLoader;
+import prochain.com.tronbox.utils.loader.ImageLoaderUtils;
+
 /**
  * Created by alex on 2019/1/22.
  */
@@ -23,6 +26,8 @@ public class fancyApplication extends MultiDexApplication {
 
         // 初始化图片加载
         singleton = this;
+        ImageLoaderUtils.initImageLoader(new GlideImageLoader());
+
     }
 
     public static fancyApplication getInstance() {

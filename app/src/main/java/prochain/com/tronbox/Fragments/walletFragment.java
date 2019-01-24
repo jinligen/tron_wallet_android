@@ -2,6 +2,7 @@ package prochain.com.tronbox.Fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -18,11 +19,15 @@ import org.tron.protos.Protocol;
 import org.tron.walletcli.WalletApiWrapper;
 import org.tron.walletserver.WalletApi;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import prochain.com.tronbox.R;
 import prochain.com.tronbox.StatusBarUtils;
 import prochain.com.tronbox.utils.fancyDataCenter;
+import prochain.com.tronbox.utils.fancyWebView;
+import prochain.com.tronbox.wallet.TronToken;
+import prochain.com.tronbox.wallet.TronTransferActivity;
 
 
 public class walletFragment extends android.support.v4.app.Fragment {
@@ -34,6 +39,7 @@ public class walletFragment extends android.support.v4.app.Fragment {
 
 
     String addr;
+    double tronBalance;
 
     public walletFragment() {
         // Required empty public constructor
@@ -54,6 +60,25 @@ public class walletFragment extends android.support.v4.app.Fragment {
 
     }
 
+    private void startWebview() {
+        {
+            Intent intent = new Intent(getActivity(), fancyWebView.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("title", "波场浏览器");
+
+            String address = fancyDataCenter.getInstance().getTronAddress();
+            bundle.putString("url", "https://tronscan.org/#/address/"+address);
+
+            intent.putExtras(bundle);
+
+            startActivity(intent);
+
+        }
+
+
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,6 +86,26 @@ public class walletFragment extends android.support.v4.app.Fragment {
         View v = inflater.inflate(R.layout.fragment_wallet, container, false);
 
         TextView address = v.findViewById(R.id.address);
+        TextView transfer = v.findViewById(R.id.transfer);
+        transfer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (wallet_tron_balance.getText().length()==0)
+                {
+                    return;
+                }
+                startTransfer();
+            }
+        });
+
+
+        TextView chain_record = v.findViewById(R.id.chain_record);
+        chain_record.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startWebview();
+            }
+        });
         return  v;
 
     }
@@ -120,8 +165,22 @@ public class walletFragment extends android.support.v4.app.Fragment {
 
             Log.d("wallet", "the account is " + account);
 
+            getActivity().runOnUiThread(new Runnable() {
+                                            public void run() {
+                                                BigDecimal big = new BigDecimal(account.getBalance());
+                                                big = big.divide(new BigDecimal(1000000));
+                                                double balance = big.floatValue();
+
+                                                String formatString =  String.format("%.2f", balance);
+                                                wallet_tron_balance.setText(formatString);
+                                                tronBalance = balance;
+                                            }
+                                        });
+
             Optional<GrpcAPI.AssetIssueList> list =  WalletApi.getAssetIssueByAccount( WalletApi.decodeFromBase58Check(addr));
             Log.d("wallet", "the account asset list is " + list);
+
+
 
             GrpcAPI.AccountResourceMessage resource = WalletApi.getAccountResource( WalletApi.decodeFromBase58Check(addr));
 
@@ -129,8 +188,6 @@ public class walletFragment extends android.support.v4.app.Fragment {
 
             getActivity().runOnUiThread(new Runnable() {
                 public void run() {
-                    double balance = account.getBalance() / 1000000;
-                    wallet_tron_balance.setText(balance + "");
 
                     net_params.setText(resource.getFreeNetLimit() + "");
 
@@ -159,5 +216,18 @@ public class walletFragment extends android.support.v4.app.Fragment {
         super.onDetach();
     }
 
+
+
+    public void startTransfer()
+    {
+        TronToken tronToken = new TronToken();
+        tronToken.balance = tronBalance + "";
+        tronToken.symbol = "Tron";
+        Intent intent = new Intent(getActivity(), TronTransferActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("TronToken", tronToken);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
 
 }

@@ -27,11 +27,24 @@
             android:name=".main.TestCenterActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".wallet.TronTransferActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".utils.fancyWebView"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".setting.walletSettingActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
         <activity android:name=".setting.exportPrivatekeyActivity"></activity>
+
+
+
     </application>
 
 </manifest>

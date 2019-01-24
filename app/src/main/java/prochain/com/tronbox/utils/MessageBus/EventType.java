@@ -13,6 +13,7 @@ public enum EventType {
     EVENT_TYPE_FRESH_TRON_DATA,
 
     EVENT_TYPE_POPUP_DISMISS,
+    EVENT_TYPE_SHOW_ERROR,
 
     //for loading dismiss
     EVENT_TYPE_LOADING_DISMISS,
