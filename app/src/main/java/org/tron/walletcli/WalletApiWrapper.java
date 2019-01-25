@@ -89,10 +89,11 @@ public class WalletApiWrapper {
     byte[] passwd = StringUtils.char2Byte(password);
 
     wallet = new WalletApi(passwd, priKey);
+    wallet.setLogin();
     StringUtils.clear(passwd);
 
     String keystoreName = wallet.store2Keystore("", context);
-    logout();
+    //logout();
     return keystoreName;
   }
 

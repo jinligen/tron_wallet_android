@@ -21,6 +21,7 @@ import org.tron.walletcli.WalletApiWrapper;
 
 import java.util.List;
 
+import prochain.com.tronbox.MainActivity;
 import prochain.com.tronbox.R;
 import prochain.com.tronbox.Views.fancyLoadingView;
 import prochain.com.tronbox.main.fancyBaseActivity;
@@ -64,11 +65,15 @@ public class TronWalletCreateActivity extends fancyBaseActivity {
                     @Override
                     public void run() {
                         loading.dismiss();
+                        ToastUtils.toastShort(TronWalletCreateActivity.this, "创建成功。。。。");
+                        Intent intent = new Intent(TronWalletCreateActivity.this, MainActivity.class);
+                        startActivity(intent);
                     }
                 });
             }
             if(msg.what==SHOW_ERROR)
             {
+                loading.dismiss();
                 ToastUtils.toastShort(TronWalletCreateActivity.this, "创建失败。。。。");
 
             }

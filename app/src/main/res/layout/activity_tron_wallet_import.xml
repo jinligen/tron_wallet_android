@@ -12,4 +12,129 @@
         android:id="@+id/titleview"
         layout="@layout/title_bar" />
 
+    <prochain.com.tronbox.Views.userDefineScrollView
+        android:layout_marginTop="44dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+
+
+
+            <EditText
+                android:id="@+id/import_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/border_corner"
+                android:hint="请输入私钥"
+                android:textSize="14sp"
+                android:gravity="top"
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
+
+
+
+
+
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="30dp">
+                <EditText
+                    android:id="@+id/user_wallet_pwd"
+                    android:singleLine="true"
+                    android:inputType="textPassword"
+                    android:background="@null"
+                    android:textSize="14sp"
+                    android:hint="请设置新的钱包密码(8位以上)"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:background="@color/color_eeeeee"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"></RelativeLayout>
+
+
+
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="30dp">
+                <EditText
+                    android:id="@+id/user_wallet_pwd_repeat"
+                    android:background="@null"
+                    android:textSize="14sp"
+                    android:inputType="textPassword"
+                    android:singleLine="true"
+                    android:hint="请确认新的钱包密码"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:background="@color/color_eeeeee"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"></RelativeLayout>
+
+
+
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="30dp">
+                <EditText
+                    android:id="@+id/user_wallet_pwd_hint"
+                    android:singleLine="true"
+                    android:background="@null"
+                    android:textSize="14sp"
+                    android:hint="密码提示"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:background="@color/color_eeeeee"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"></RelativeLayout>
+
+
+
+
+
+
+
+
+            <RelativeLayout
+                android:layout_marginTop="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:textAllCaps="false"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/import_btn"
+                    android:textColor="@color/white"
+                    android:text="导入"
+                    android:background="@mipmap/blue_btn_bg"
+                    android:layout_width="200dp"
+                    android:layout_height="54dp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </prochain.com.tronbox.Views.userDefineScrollView>
+
+
+
 </RelativeLayout>
