@@ -49,6 +49,7 @@ public class fancyBaseActivity extends AppCompatActivity {
     public static final int MSG_LOAD_FAILED = 0x0003;
 
     public  static final int COMPLETED = 0;
+    public static final int  SHOW_ERROR = -1;
 
     public TextView titleCenter;
     public ImageView imageBack;

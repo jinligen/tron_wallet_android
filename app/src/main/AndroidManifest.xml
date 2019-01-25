@@ -27,7 +27,6 @@
             android:name=".main.TestCenterActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".wallet.TronTransferActivity"
             android:launchMode="singleTask"
@@ -36,15 +35,17 @@
             android:name=".utils.fancyWebView"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".wallet.EOSWalletCreateSelectActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".setting.walletSettingActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".setting.exportPrivatekeyActivity"></activity>
-
-
-
+            android:screenOrientation="portrait" />
+        <activity android:name=".setting.exportPrivatekeyActivity" />
+        <activity android:name=".wallet.TronWalletCreateActivity" />
+        <activity android:name=".wallet.TronWalletImportActivity"></activity>
     </application>
 
 </manifest>

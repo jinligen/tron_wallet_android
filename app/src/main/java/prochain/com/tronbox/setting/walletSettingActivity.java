@@ -20,6 +20,7 @@ import prochain.com.tronbox.main.fancyBaseActivity;
 import prochain.com.tronbox.utils.MessageBus.EventType;
 import prochain.com.tronbox.utils.MessageBus.MessageEvent;
 import prochain.com.tronbox.utils.ToastUtils;
+import prochain.com.tronbox.utils.fancyDataCenter;
 
 public class walletSettingActivity extends fancyBaseActivity {
 
@@ -151,8 +152,7 @@ public class walletSettingActivity extends fancyBaseActivity {
 
 
         //todo
-        String filepath = "tron_UTC--2019-01-16T06-53-35.834000000Z--TE219sxVkibLg38uKLiLz5eBiZ8RCLJQR2.json";
-
+        String filepath = fancyDataCenter.getInstance().getCurrentTronPath();
         Intent intent = new Intent(this, exportPrivatekeyActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("walletpwd", walletkey);

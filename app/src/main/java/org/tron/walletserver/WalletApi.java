@@ -810,6 +810,13 @@ public class WalletApi {
       Log.d("tag", "Warning: Password is too short !!");
       return false;
     }
+
+
+    //always return true;
+    return true;
+
+
+    /*
     //Other rule;
     int level = CheckStrength.checkPasswordStrength(password);
     if (level <= 4) {
@@ -825,6 +832,7 @@ public class WalletApi {
       return false;
     }
     return true;
+    */
   }
 
   public static boolean addressValid(byte[] address) {

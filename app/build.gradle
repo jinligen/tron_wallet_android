@@ -26,7 +26,7 @@ android {
     }
 
     sourceSets {
-        main {  
+        main {
             // 定义proto文件目录
             proto {
                 srcDir 'src/main/proto'
@@ -94,7 +94,6 @@ dependencies {
 
     compile 'com.yinglan.alphatabs:library:1.0.8'
     compile 'org.greenrobot:eventbus:3.0.0'
-
 
     //circle image
     compile 'de.hdodenhof:circleimageview:2.1.0'

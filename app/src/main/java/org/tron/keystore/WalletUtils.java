@@ -103,7 +103,7 @@ public class WalletUtils {
     FileOutputStream fos = context.openFileOutput(filepath, MODE_PRIVATE);//获得FileOutputStream
 
     objectMapper.writeValue(fos, walletFile);
-    return filename;
+    return filepath;
   }
 
   //    /**

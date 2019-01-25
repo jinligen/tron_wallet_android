@@ -18,6 +18,7 @@ import prochain.com.tronbox.setting.SettingListInfo;
 import prochain.com.tronbox.Views.SettingSrollView;
 import prochain.com.tronbox.main.TestCenterActivity;
 import prochain.com.tronbox.setting.walletSettingActivity;
+import prochain.com.tronbox.wallet.EOSWalletCreateSelectActivity;
 
 
 public class settingFragment extends android.support.v4.app.Fragment {
@@ -111,6 +112,11 @@ public class settingFragment extends android.support.v4.app.Fragment {
                         startSetting();
                         break;
                     }
+                    case 2:
+                    {
+                        startCreateSelect();
+                        break;
+                    }
 
                     default:
                         break;
@@ -127,10 +133,20 @@ public class settingFragment extends android.support.v4.app.Fragment {
     public void setData()
     {
         SettingListInfo info1 = new SettingListInfo(R.mipmap.setting_wallet_icon,"钱包管理", "", R.mipmap.setting_enter_icon);
+
+        SettingListInfo info2 = new SettingListInfo(R.mipmap.setting_wallet_icon,"创建或导入钱包", "", R.mipmap.setting_enter_icon);
+
         mList.add(info1);
+        mList.add(info2);
 
     }
 
+
+    private void startCreateSelect()
+    {
+        Intent intent = new Intent(getActivity(), EOSWalletCreateSelectActivity.class);
+        startActivity(intent);
+    }
 
     private void startTest()
     {
