@@ -38,7 +38,7 @@ The current TRON team radiates out from Beijing to Seoul, Tokyo, San Francisco a
 
 =============================================
 
-2. 
+2. Usage
 
 
 You can check the testCenter's sample for more functions.
@@ -58,29 +58,93 @@ walletApi.context = this;
 
 
 ImportWallet
+
 ImportwalletByBase64
+
 ChangePassword
+
 Login
+
 Logout
+
 BackupWallet
+
 BackupWallet2Base64
+
 Getaddress
+
 GetBalance
+
 GetAccount
+
 GetAssetissueByAccount
+
 GetAssetIssueByName
+
 SendCoin
+
 TransferAsset
+
 ParticipateAssetissue
+
 Assetissue
+
 CreateWitness
+
 VoteWitness
-FreezeBalance UnfreezeBalance WithdrawBalance Listaccounts
+
+FreezeBalance 
+
+UnfreezeBalance
+
+WithdrawBalance
+
+Listaccounts
+
 Listwitnesses
+
 Listassetissue
+
 listNodes
+
 GetAssetIssueByName
+
+
 Getblock UpdateAccount  Exit or Quit
+
+
+
+================================================
+
+3. call or sign contract
+
+
+
+
+ private void callSignContract()
+ {
+        if (walletApi==null)
+        {
+            Log.d("wallet", "please login first");
+            return ;
+        }
+
+        String contractAddress = "THBE7KgFSP6zWrfJh7yp4gfZd9VCfPcbws";
+
+        String method = "click";
+        String params = "1";
+
+        String privateKey = "Your private key";
+        walletApi.ecKey = ECKey.fromPrivate(ByteArray.fromHexString(privateKey));
+        //ClickEvent
+        walletApi.triggerContract(contractAddress,method, params);
+
+
+    
+ }
+    
+    
+
 
 
 
