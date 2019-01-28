@@ -144,6 +144,14 @@ Getblock UpdateAccount  Exit or Quit
  }
     
     
+===================================================
+
+
+4. dapp interaction relate. 
+
+todo....using the similar js middle ware as we do in EOS
+
+
 
 
 
