@@ -25,33 +25,31 @@
             android:textSize="18sp" />
 
 
-
         <TextView
             android:id="@+id/chain_record"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
             android:layout_marginRight="15dp"
             android:text="链上记录"
             android:textColor="@color/color_333333"
             android:textSize="14sp" />
 
 
-
-
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:layout_marginLeft="15dp"
+
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
         android:background="@mipmap/eos_wallet_bg">
 
         <TextView
+            android:id="@+id/left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -62,14 +60,18 @@
 
         <TextView
             android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="12sp"
+            android:layout_toRightOf="@id/left"
+            android:ellipsize="middle"
+            android:singleLine="true"
             android:text=""
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="12sp" />
 
 
         <TextView
@@ -97,11 +99,11 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-
         android:layout_width="match_parent"
         android:layout_height="140dp"
+
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:background="@drawable/shape_eos_wallet_banner"
         android:orientation="vertical">
 
@@ -213,10 +215,9 @@
     </LinearLayout>
 
     <View
-        android:background="@color/color_f5f5f5"
         android:layout_width="match_parent"
-        android:layout_height="13dp"></View>
-
+        android:layout_height="13dp"
+        android:background="@color/color_f5f5f5"></View>
 
 
 </LinearLayout>

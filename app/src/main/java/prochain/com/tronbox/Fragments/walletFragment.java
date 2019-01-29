@@ -1,6 +1,8 @@
 package prochain.com.tronbox.Fragments;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.tron.api.GrpcAPI;
 import org.tron.common.utils.ByteArray;
@@ -67,7 +70,7 @@ public class walletFragment extends android.support.v4.app.Fragment {
             bundle.putString("title", "波场浏览器");
 
             String address = fancyDataCenter.getInstance().getTronAddress();
-            bundle.putString("url", "https://tronscan.org/#/address/"+address);
+            bundle.putString("url", "https://tronscan.org/#/address/" + address);
 
             intent.putExtras(bundle);
 
@@ -90,8 +93,7 @@ public class walletFragment extends android.support.v4.app.Fragment {
         transfer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (wallet_tron_balance.getText().length()==0)
-                {
+                if (wallet_tron_balance.getText().length() == 0) {
                     return;
                 }
                 startTransfer();
@@ -106,7 +108,7 @@ public class walletFragment extends android.support.v4.app.Fragment {
                 startWebview();
             }
         });
-        return  v;
+        return v;
 
     }
 
@@ -119,11 +121,9 @@ public class walletFragment extends android.support.v4.app.Fragment {
     }
 
 
-
     static int initLoad = 0;
 
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
         View v = getView();
 
@@ -132,15 +132,22 @@ public class walletFragment extends android.support.v4.app.Fragment {
         net_params = v.findViewById(R.id.net_params);
         cpu_params = v.findViewById(R.id.cpu_params);
         addr = fancyDataCenter.getInstance().getTronAddress();
+        address.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText(null, addr);
+                clipboard.setPrimaryClip(clipData);
+                Toast.makeText(getActivity(), "复制成功", Toast.LENGTH_SHORT).show();
+            }
+        });
         address.setText(addr);
-
 
 
     }
 
 
-    public void freshData()
-    {
+    public void freshData() {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -149,40 +156,37 @@ public class walletFragment extends android.support.v4.app.Fragment {
         }).start();
     }
 
-    private void updateAccount(String addr)
-    {
+    private void updateAccount(String addr) {
         try {
             WalletApiWrapper walletApi = fancyDataCenter.getInstance().walletApi;
-            if (walletApi==null)
-            {
+            if (walletApi == null) {
                 walletApi = new WalletApiWrapper();
                 walletApi.context = getActivity();
             }
 
 
-            Protocol.Account account =  WalletApi.queryAccount(WalletApi.decodeFromBase58Check(addr));
+            Protocol.Account account = WalletApi.queryAccount(WalletApi.decodeFromBase58Check(addr));
 
 
             Log.d("wallet", "the account is " + account);
 
             getActivity().runOnUiThread(new Runnable() {
-                                            public void run() {
-                                                BigDecimal big = new BigDecimal(account.getBalance());
-                                                big = big.divide(new BigDecimal(1000000));
-                                                double balance = big.floatValue();
+                public void run() {
+                    BigDecimal big = new BigDecimal(account.getBalance());
+                    big = big.divide(new BigDecimal(1000000));
+                    double balance = big.floatValue();
 
-                                                String formatString =  String.format("%.2f", balance);
-                                                wallet_tron_balance.setText(formatString);
-                                                tronBalance = balance;
-                                            }
-                                        });
+                    String formatString = String.format("%.2f", balance);
+                    wallet_tron_balance.setText(formatString);
+                    tronBalance = balance;
+                }
+            });
 
-            Optional<GrpcAPI.AssetIssueList> list =  WalletApi.getAssetIssueByAccount( WalletApi.decodeFromBase58Check(addr));
+            Optional<GrpcAPI.AssetIssueList> list = WalletApi.getAssetIssueByAccount(WalletApi.decodeFromBase58Check(addr));
             Log.d("wallet", "the account asset list is " + list);
 
 
-
-            GrpcAPI.AccountResourceMessage resource = WalletApi.getAccountResource( WalletApi.decodeFromBase58Check(addr));
+            GrpcAPI.AccountResourceMessage resource = WalletApi.getAccountResource(WalletApi.decodeFromBase58Check(addr));
 
             Log.d("wallet", "the account resource is " + resource);
 
@@ -191,14 +195,12 @@ public class walletFragment extends android.support.v4.app.Fragment {
 
                     net_params.setText(resource.getFreeNetLimit() + "");
 
-                    cpu_params.setText(resource.getEnergyLimit()-resource.getEnergyUsed() + "");
+                    cpu_params.setText(resource.getEnergyLimit() - resource.getEnergyUsed() + "");
                 }
             });
 
 
-
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             Log.d("wallet", "the login error " + e.toString());
 
         }
@@ -217,9 +219,7 @@ public class walletFragment extends android.support.v4.app.Fragment {
     }
 
 
-
-    public void startTransfer()
-    {
+    public void startTransfer() {
         TronToken tronToken = new TronToken();
         tronToken.balance = tronBalance + "";
         tronToken.symbol = "Tron";
